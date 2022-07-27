@@ -15,12 +15,15 @@ create table aplicacion.direccion(
   localizacion geometry(pointz, 6257)
 );
 
+create index on aplicacion.direccion(id_barrio);
+create index on aplicacion.direccion(id_localidad);
+
 create table aplicacion.inconveniente (
   id bigserial,
   descripcion text,
   id_estado bigint not null references dominios.estado_reporte(id),
   fecha_creacion timestamp not null default current_timestamp,
-  id_direccion bigint references aplicacion.direccion(id),
+  id_direccion bigint unique references aplicacion.direccion(id),
   id_usuario bigint not null references administracion.usuario(id)
 );
 
@@ -28,3 +31,10 @@ create index on aplicacion.inconveniente(id_direccion);
 create index on aplicacion.inconveniente(id_usuario);
 create index on aplicacion.inconveniente(id_estado);
 
+create table aplicacion.foto(
+  id bigserial,
+  id_inconveniente bigint not null references aplicacion.inconveniente(id),
+  enlace text not null
+);
+
+create index on aplicacion.foto(id_inconveniente);
