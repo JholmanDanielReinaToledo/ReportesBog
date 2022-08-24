@@ -1,35 +1,35 @@
-const express = require("express");
-const { postgraphile  } = require("postgraphile");
-const cors = require('cors');
-const postgis = require('@graphile/postgis');
-const path = require('path');
+import express from 'express'
+import cors from 'cors'
+import { postgraphile } from 'postgraphile'
 
-const app = express();
+const app = express()
+const PORT = 3000;  // URL	jdbc:postgresql://localhost:5434/postgres
+const CONNECTION_STRING = 'postgres://postgres:juanesloco123@localhost:5434/postgres'
+
 
 const options = {
-    origin: '*',
+  origin: '*',
 };
-
-const CONNECTION_DB = 'postgres://postgres:juanesloco123@localhost:5432/postgres'
 
 app.use(cors(options));
 
-app.use(express.json({ limit: '100mb' }));
-
-app.use(express.static(path.join(__dirname, '../public')));
-
-app.use('/graph',
+app.use(
+  '/back',
   postgraphile(
-    CONNECTION_DB,
-    "public",
+    CONNECTION_STRING,
+    [
+      'administracion',
+      'aplicacion',
+      'dominios',
+    ],
     {
-      retryOnInitFail: true,
       watchPg: true,
       graphiql: true,
       enhanceGraphiql: true,
-      appendPlugins: [postgis],
     }
   )
 );
 
-app.listen(3000);
+app.listen(PORT, () => {
+  console.log('Server running in port ' + PORT)
+});
