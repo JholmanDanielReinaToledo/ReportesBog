@@ -11,8 +11,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "actividad_economica_tipologica", schema = "sisdep_general")
-public class ActividadEconomicaTipologica extends Model implements SimpleModel {
+@Table(name = "localidad", schema = "dominios")
+public class Localidad extends Model implements SimpleModel {
     @Id
     @NotNull
     @Column(name = "id")
