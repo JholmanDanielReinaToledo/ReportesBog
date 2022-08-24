@@ -1,6 +1,0 @@
-GET           /api/archivos/registro-entrega/*file                                                controllers.ArchivosServiceController.getFile(file: String, request: Request)
-GET           /api/archivos/pdf-resoluciones/*file                                                controllers.ArchivosServiceController.getFile(file: String, request: Request)
-GET           /api/archivos/guia-notificacion/*file                                               controllers.ArchivosServiceController.getFile(file: String, request: Request)
-GET           /api/archivos/visita-administrativa/*file                                           controllers.ArchivosServiceController.getFile(file: String, request: Request)
-GET           /api/archivos/pdf-venteros/*file                                                    controllers.ArchivosServiceController.getFile(file: String, request: Request)
-GET           /api/archivos/evidencias-oferta/*file                                               controllers.ArchivosServiceController.getFile(file: String, request: Request)
