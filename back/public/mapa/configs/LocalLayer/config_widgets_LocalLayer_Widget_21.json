@@ -1,0 +1,20 @@
+{
+  "layers": {
+    "layer": [
+      {
+        "type": "Basemap",
+        "name": "Imagen",
+        "layers": {
+          "layer": [
+            {
+              "url": "https://www.medellin.gov.co/mapas/rest/services/ServiciosCiudad/IMAGEN_WEBM/MapServer",
+              "opacity": 0.6,
+              "displayLevels": null,
+              "isReference": false
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

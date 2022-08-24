@@ -1,0 +1,21 @@
+POST           /api/regulaciones/reportes/asignacionModulos/excel                                     controllers.regulaciones.reportes.AsignacionModulosController.getExcel2(request: Request)
+GET            /api/regulaciones/reportes/asignacionModulos                                           controllers.regulaciones.reportes.AsignacionModulosController.getAll(request: Request)
+
+POST           /api/regulaciones/reportes/solicitudAutorizacionReporte/excel                                     controllers.regulaciones.reportes.SolicitudAutorizacionReporteController.getExcel2(request: Request)
+GET            /api/regulaciones/reportes/solicitudAutorizacionReporte                                           controllers.regulaciones.reportes.SolicitudAutorizacionReporteController.getAll(request: Request)
+
+POST           /api/social/reportes/estudiosPorVentero/excel                                          controllers.social.reportes.EstudiosPorVenteroController.getExcel2(request: Request)
+GET            /api/social/reportes/estudiosPorVentero                                                controllers.social.reportes.EstudiosPorVenteroController.getAll(request: Request)
+
+POST           /api/ventero/reportes/personasReportes/excel                                           controllers.ventero.reportes.PersonasReporteController.getExcel2(request: Request)
+GET            /api/ventero/reportes/personasReportes                                                 controllers.ventero.reportes.PersonasReporteController.getAll(request: Request)
+GET            /api/ventero/reportes/personasReportes/stream                                          controllers.ventero.reportes.PersonasReporteController.getAllStream(request: Request)
+
+POST           /api/regulaciones/reportes/reporteModulos/excel                                     controllers.regulaciones.reportes.ReporteModulosController.getExcel2(request: Request)
+GET            /api/regulaciones/reportes/reporteModulos                                           controllers.regulaciones.reportes.ReporteModulosController.getAll(request: Request)
+
+
+
+POST           /api/social/reportes/reporteParticipantes/excel                                     controllers.social.reportes.ReporteParticipantesController.getExcel2(request: Request)
+GET            /api/social/reportes/reporteParticipantes                                           controllers.social.reportes.ReporteParticipantesController.getAll(request: Request)
+

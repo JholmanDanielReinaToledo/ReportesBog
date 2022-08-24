@@ -1,0 +1,98 @@
+version: '3'
+
+# Versión podman alcaldía: 3.0.2
+# Orchestrator: 
+# Networking mode
+# SVN: alcaldiareportesmed2.azurecr.io
+# SVN-usr: Alcaldiareportesmed2
+# SVN-pass: kgdjJxwcLIy=D8eJXjujcvr36XFGc57/
+
+# podman login, podman push
+# 10.2.0.111:3047
+# 3217356535
+services:
+  front:
+    build:
+      context: front
+      dockerfile: Dockerfile
+    image: front-sisdep
+    container_name: front
+    restart: unless-stopped
+    networks:
+      - app-network
+
+  back:
+    image: sisdep:1.0-SNAPSHOT
+    container_name: back
+    restart: unless-stopped
+    environment:
+      - "JAVA_OPTS=-Duser.timezone=UTC"
+    networks:
+      - app-network
+    volumes:
+      - archivos:/archivos
+
+  webserver:
+    image: nginx:mainline-alpine
+    container_name: webserver
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - web-root:/var/www/html
+      - ./nginx-conf:/etc/nginx/conf.d
+      - certbot-etc:/etc/letsencrypt
+      - certbot-var:/var/lib/letsencrypt
+      - dhparam:/etc/ssl/certs
+    depends_on:
+      - back
+    networks:
+      - app-network
+
+  certbot:
+    image: certbot/certbot
+    container_name: certbot
+    volumes:
+      - certbot-etc:/etc/letsencrypt
+      - certbot-var:/var/lib/letsencrypt
+      - web-root:/var/www/html
+    depends_on:
+      - webserver
+    command: certonly --webroot --webroot-path=/var/www/html --email vdjaramillo@geosat.com.co --agree-tos --no-eff-email --force-renewal -d sisdep.geosat.com.co
+    
+volumes:
+  dhparam:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/despliegues/sisdep/dhparam/
+      o: bind
+  certbot-etc:
+    driver: local
+    driver_opts:
+      type: none
+      device: /etc/letsencrypt/
+      o: bind
+  certbot-var:
+    driver: local
+    driver_opts:
+      type: none
+      device: /var/lib/letsencrypt/
+      o: bind
+  web-root:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/despliegues/sisdep/public/
+      o: bind
+  archivos:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/despliegues/sisdep/archivos
+      o: bind
+
+networks:
+  app-network:
+    driver: bridge

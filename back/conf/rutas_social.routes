@@ -1,0 +1,96 @@
+GET           /api/social/necesidad                                     controllers.social.NecesidadController.getAll(request: Request)
+GET           /api/social/necesidad/:id                                 controllers.social.NecesidadController.getOne(id: Long, request: Request)
+POST          /api/social/necesidad                                     controllers.social.NecesidadController.add(request: Request)
+PATCH         /api/social/necesidad/:id                                 controllers.social.NecesidadController.patch(id: Long, request: Request)
+DELETE        /api/social/necesidad/:id                                 controllers.social.NecesidadController.remove(id: Long, request: Request)
+
+GET           /api/social/aspectosEconomicos                                     controllers.social.AspectosEconomicosController.getAll(request: Request)
+GET           /api/social/aspectosEconomicos/:id                                 controllers.social.AspectosEconomicosController.getOne(id: Long, request: Request)
+POST          /api/social/aspectosEconomicos                                     controllers.social.AspectosEconomicosController.add(request: Request)
+PATCH         /api/social/aspectosEconomicos/:id                                 controllers.social.AspectosEconomicosController.patch(id: Long, request: Request)
+DELETE        /api/social/aspectosEconomicos/:id                                 controllers.social.AspectosEconomicosController.remove(id: Long, request: Request)
+
+
+GET           /api/social/aspectosFamiliares                                     controllers.social.AspectosFamiliaresController.getAll(request: Request)
+GET           /api/social/aspectosFamiliares/:id                                 controllers.social.AspectosFamiliaresController.getOne(id: Long, request: Request)
+POST          /api/social/aspectosFamiliares                                     controllers.social.AspectosFamiliaresController.add(request: Request)
+PATCH         /api/social/aspectosFamiliares/:id                                 controllers.social.AspectosFamiliaresController.patch(id: Long, request: Request)
+DELETE        /api/social/aspectosFamiliares/:id                                 controllers.social.AspectosFamiliaresController.remove(id: Long, request: Request)
+
+
+GET           /api/social/aspectosPoblacionales                                     controllers.social.AspectosPoblacionalesController.getAll(request: Request)
+GET           /api/social/aspectosPoblacionales/:id                                 controllers.social.AspectosPoblacionalesController.getOne(id: Long, request: Request)
+POST          /api/social/aspectosPoblacionales                                     controllers.social.AspectosPoblacionalesController.add(request: Request)
+PATCH         /api/social/aspectosPoblacionales/:id                                 controllers.social.AspectosPoblacionalesController.patch(id: Long, request: Request)
+DELETE        /api/social/aspectosPoblacionales/:id                                 controllers.social.AspectosPoblacionalesController.remove(id: Long, request: Request)
+
+
+GET           /api/social/aspectosSeguridadSocial                                     controllers.social.AspectosSeguridadSocialController.getAll(request: Request)
+GET           /api/social/aspectosSeguridadSocial/:id                                 controllers.social.AspectosSeguridadSocialController.getOne(id: Long, request: Request)
+POST          /api/social/aspectosSeguridadSocial                                     controllers.social.AspectosSeguridadSocialController.add(request: Request)
+PATCH         /api/social/aspectosSeguridadSocial/:id                                 controllers.social.AspectosSeguridadSocialController.patch(id: Long, request: Request)
+DELETE        /api/social/aspectosSeguridadSocial/:id                                 controllers.social.AspectosSeguridadSocialController.remove(id: Long, request: Request)
+
+
+GET           /api/social/aspectosVivienda                                     controllers.social.AspectosViviendaController.getAll(request: Request)
+GET           /api/social/aspectosVivienda/:id                                 controllers.social.AspectosViviendaController.getOne(id: Long, request: Request)
+POST          /api/social/aspectosVivienda                                     controllers.social.AspectosViviendaController.add(request: Request)
+PATCH         /api/social/aspectosVivienda/:id                                 controllers.social.AspectosViviendaController.patch(id: Long, request: Request)
+DELETE        /api/social/aspectosVivienda/:id                                 controllers.social.AspectosViviendaController.remove(id: Long, request: Request)
+
+
+GET           /api/social/conceptoVulnerabilidad                                     controllers.social.ConceptoVulnerabilidadController.getAll(request: Request)
+GET           /api/social/conceptoVulnerabilidad/:id                                 controllers.social.ConceptoVulnerabilidadController.getOne(id: Long, request: Request)
+POST          /api/social/conceptoVulnerabilidad                                     controllers.social.ConceptoVulnerabilidadController.add(request: Request)
+PATCH         /api/social/conceptoVulnerabilidad/:id                                 controllers.social.ConceptoVulnerabilidadController.patch(id: Long, request: Request)
+DELETE        /api/social/conceptoVulnerabilidad/:id                                 controllers.social.ConceptoVulnerabilidadController.remove(id: Long, request: Request)
+
+
+GET           /api/social/datosPersonales                                     controllers.social.DatosPersonalesController.getAll(request: Request)
+GET           /api/social/datosPersonales/:id                                 controllers.social.DatosPersonalesController.getOne(id: Long, request: Request)
+POST          /api/social/datosPersonales                                     controllers.social.DatosPersonalesController.add(request: Request)
+PATCH         /api/social/datosPersonales/:id                                 controllers.social.DatosPersonalesController.patch(id: Long, request: Request)
+DELETE        /api/social/datosPersonales/:id                                 controllers.social.DatosPersonalesController.remove(id: Long, request: Request)
+
+
+GET           /api/social/estudioSocioEconomico                                     controllers.social.EstudioSocioEconomicoController.getAll(request: Request)
+GET           /api/social/estudioSocioEconomico/:id                                 controllers.social.EstudioSocioEconomicoController.getOne(id: Long, request: Request)
+POST          /api/social/estudioSocioEconomico                                     controllers.social.EstudioSocioEconomicoController.add(request: Request)
+PATCH         /api/social/estudioSocioEconomico/:id                                 controllers.social.EstudioSocioEconomicoController.patch(id: Long, request: Request)
+DELETE        /api/social/estudioSocioEconomico/:id                                 controllers.social.EstudioSocioEconomicoController.remove(id: Long, request: Request)
+
+
+GET           /api/social/evidenciasOferta                                     controllers.social.EvidenciasOfertaController.getAll(request: Request)
+GET           /api/social/evidenciasOferta/:id                                 controllers.social.EvidenciasOfertaController.getOne(id: Long, request: Request)
+POST          /api/social/evidenciasOferta                                     controllers.social.EvidenciasOfertaController.add(request: Request)
+PATCH         /api/social/evidenciasOferta/:id                                 controllers.social.EvidenciasOfertaController.patch(id: Long, request: Request)
+DELETE        /api/social/evidenciasOferta/:id                                 controllers.social.EvidenciasOfertaController.remove(id: Long, request: Request)
+
+
+GET           /api/social/oferta                                     controllers.social.OfertaController.getAll(request: Request)
+GET           /api/social/oferta/:id                                 controllers.social.OfertaController.getOne(id: Long, request: Request)
+POST          /api/social/oferta                                     controllers.social.OfertaController.add(request: Request)
+PATCH         /api/social/oferta/:id                                 controllers.social.OfertaController.patch(id: Long, request: Request)
+DELETE        /api/social/oferta/:id                                 controllers.social.OfertaController.remove(id: Long, request: Request)
+
+
+GET           /api/social/participanteOferta                                     controllers.social.ParticipanteOfertaController.getAll(request: Request)
+GET           /api/social/participanteOferta/:id                                 controllers.social.ParticipanteOfertaController.getOne(id: Long, request: Request)
+POST          /api/social/participanteOferta                                     controllers.social.ParticipanteOfertaController.add(request: Request)
+PATCH         /api/social/participanteOferta/:id                                 controllers.social.ParticipanteOfertaController.patch(id: Long, request: Request)
+DELETE        /api/social/participanteOferta/:id                                 controllers.social.ParticipanteOfertaController.remove(id: Long, request: Request)
+
+
+GET           /api/social/remision                                     controllers.social.RemisionController.getAll(request: Request)
+GET           /api/social/remision/:id                                 controllers.social.RemisionController.getOne(id: Long, request: Request)
+POST          /api/social/remision                                     controllers.social.RemisionController.add(request: Request)
+PATCH         /api/social/remision/:id                                 controllers.social.RemisionController.patch(id: Long, request: Request)
+DELETE        /api/social/remision/:id                                 controllers.social.RemisionController.remove(id: Long, request: Request)
+
+
+GET           /api/social/visitaDomiciliaria                                     controllers.social.VisitaDomiciliariaController.getAll(request: Request)
+GET           /api/social/visitaDomiciliaria/:id                                 controllers.social.VisitaDomiciliariaController.getOne(id: Long, request: Request)
+POST          /api/social/visitaDomiciliaria                                     controllers.social.VisitaDomiciliariaController.add(request: Request)
+PATCH         /api/social/visitaDomiciliaria/:id                                 controllers.social.VisitaDomiciliariaController.patch(id: Long, request: Request)
+DELETE        /api/social/visitaDomiciliaria/:id                                 controllers.social.VisitaDomiciliariaController.remove(id: Long, request: Request)
+

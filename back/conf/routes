@@ -1,0 +1,12 @@
+#
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+GET        /sisdep/prueba/reCaptcha              controllers.seguridad.TestReCaptchaController.index
+GET        /sisdep/prueba/eventsource            controllers.HomeController.eventsourceTest
+
+
+GET        /               controllers.Default.redirect(to = "/sisdep")
+GET        /sisdep/        controllers.Default.redirect(to = "/sisdep")
+->         /sisdep         rutas.Routes
+

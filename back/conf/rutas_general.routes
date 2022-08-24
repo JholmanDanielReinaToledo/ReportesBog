@@ -1,0 +1,20 @@
+GET           /api/general/direccion                                     controllers.general.DireccionController.getAll(request: Request)
+GET           /api/general/direccion/:id                                 controllers.general.DireccionController.getOne(id: Long, request: Request)
+POST          /api/general/direccion                                     controllers.general.DireccionController.add(request: Request)
+PATCH         /api/general/direccion/:id                                 controllers.general.DireccionController.patch(id: Long, request: Request)
+DELETE        /api/general/direccion/:id                                 controllers.general.DireccionController.remove(id: Long, request: Request)
+
+
+GET           /api/general/modulo                                     controllers.general.ModuloController.getAll(request: Request)
+GET           /api/general/modulo/stream                              controllers.general.ModuloController.getAllStream(request: Request)
+GET           /api/general/modulo/:id                                 controllers.general.ModuloController.getOne(id: Long, request: Request)
+POST          /api/general/modulo                                     controllers.general.ModuloController.add(request: Request)
+PATCH         /api/general/modulo/:id                                 controllers.general.ModuloController.patch(id: Long, request: Request)
+DELETE        /api/general/modulo/:id                                 controllers.general.ModuloController.remove(id: Long, request: Request)
+
+
+GET           /api/general/vehiculo                                     controllers.general.VehiculoController.getAll(request: Request)
+GET           /api/general/vehiculo/:id                                 controllers.general.VehiculoController.getOne(id: Long, request: Request)
+POST          /api/general/vehiculo                                     controllers.general.VehiculoController.add(request: Request)
+PATCH         /api/general/vehiculo/:id                                 controllers.general.VehiculoController.patch(id: Long, request: Request)
+DELETE        /api/general/vehiculo/:id                                 controllers.general.VehiculoController.remove(id: Long, request: Request)

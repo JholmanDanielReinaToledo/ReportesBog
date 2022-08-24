@@ -1,0 +1,25 @@
+<h1>Server Sent Event test:</h1>
+
+<h3 id="clock" style="border-bottom: 6px solid red; background-color: lightgrey;">Loading...</h3>
+
+<p>
+  Events are pushed from the Server using a Server Sent Event connection.
+</p>
+
+<script>
+    if (!!window.EventSource) {
+        var stringSource = new EventSource('/sena/api/gestion/ejecucion/status');
+        stringSource.addEventListener('message', function(e) {
+            document.querySelector('#clock').innerHTML = JSON.stringify(JSON.parse(e.data));
+        });
+
+        stringSource.addEventListener('error', function(e) {
+            console.log(e);
+            document.querySelector('#clock').innerHTML = 'ERROR. Look the console.log()';
+        });
+    } else {
+        document.querySelector('#clock').innerHTML =
+            "Sorry. This browser doesn't seem to support Server sent event. Check <a href='http://html5test.com/compare/feature/communication-eventSource.html'>html5test</a> for browser compatibility.";
+
+    }
+</script>

@@ -1,0 +1,49 @@
+{
+  "name": "sisdep-back",
+  "version": "0.0.1",
+  "description": "Backend SISDEP",
+  "private": true,
+  "author": "Víctor Daniel Jaramillo Gómez",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/cookie-parser": "^1.4.2",
+    "@types/cors": "^2.8.12",
+    "@types/debug": "^4.1.7",
+    "@types/express-fileupload": "^1.1.7",
+    "@types/html-pdf": "^2.2.1",
+    "@types/lodash": "^4.14.172",
+    "@types/morgan": "^1.9.3",
+    "@types/node": "^16.6.1",
+    "@typescript-eslint/eslint-plugin": "^5.12.0",
+    "@typescript-eslint/parser": "^5.12.0",
+    "eslint": "^8.9.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-next": "12.0.10",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-import-resolver-typescript": "^2.4.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-promise": "^6.0.0",
+    "eslint-plugin-react": "^7.28.0",
+    "eslint-plugin-react-hooks": "^4.3.0",
+    "husky": "^4.2.5",
+    "lint-staged": "^12.3.4",
+    "prettier": "^2.5.1",
+    "prettier-eslint-cli": "^5.0.1",
+    "typescript": "^4.5.5"
+  },
+  "lint-staged": {
+    "front/**/*.ts": [
+      "eslint --fix"
+    ],
+    "front/**/*.tsx": [
+      "eslint --fix"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  }
+}
