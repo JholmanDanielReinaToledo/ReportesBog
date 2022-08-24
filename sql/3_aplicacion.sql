@@ -19,7 +19,7 @@ create index on aplicacion.direccion(id_barrio);
 create index on aplicacion.direccion(id_localidad);
 
 create table aplicacion.inconveniente (
-  id bigserial,
+  id bigserial primary key,
   descripcion text,
   id_estado bigint not null references dominios.estado_reporte(id),
   fecha_creacion timestamp not null default current_timestamp,
@@ -32,7 +32,7 @@ create index on aplicacion.inconveniente(id_usuario);
 create index on aplicacion.inconveniente(id_estado);
 
 create table aplicacion.foto(
-  id bigserial,
+  id bigserial primary key,
   id_inconveniente bigint not null references aplicacion.inconveniente(id),
   enlace text not null
 );
