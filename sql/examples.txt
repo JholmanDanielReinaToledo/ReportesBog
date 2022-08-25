@@ -1,0 +1,46 @@
+query AllFotos {
+  allTipoDocumentos {
+    nodes {
+      id
+      descripcion
+      usuariosByIdTipoDocumento{
+        usuarios: nodes{
+          id
+          nombre
+          apellido
+          activo
+          inconvenientesByIdUsuario{
+            nodes{
+              id
+              descripcion
+              estadoReporteByIdEstado {
+                descripcion
+              }
+              fechaCreacion
+              
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+query UsuarioById ($id: BigInt!) {
+  usuarioById(id: $id) {
+    id
+    nombre
+    apellido
+    idTipoDocumento
+    inconvenientesByIdUsuario{
+      nodes{
+        id
+        descripcion
+        idEstado
+        estadoReporteByIdEstado{
+          descripcion
+        }
+      }
+    }
+  }
+}

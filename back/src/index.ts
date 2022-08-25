@@ -6,8 +6,6 @@ require('dotenv').config()
 
 const app = express()
 
-console.log(process.env.CONNECTION)
-
 const options: CorsOptions = {
   origin: '*',
 };
@@ -17,11 +15,12 @@ app.use(cors(options));
 app.use(
   '/back',
   postgraphile(
-    process.env.CONNECTION,
+    process.env.DB_URL,
     [
       'administracion',
       'aplicacion',
       'dominios',
+      'public'
     ],
     {
       watchPg: true,
