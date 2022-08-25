@@ -1,13 +1,14 @@
 import express from 'express'
-import cors from 'cors'
+import cors, { CorsOptions } from 'cors'
 import { postgraphile } from 'postgraphile'
 
+require('dotenv').config()
+
 const app = express()
-const PORT = 3000;  // URL	jdbc:postgresql://localhost:5434/postgres
-const CONNECTION_STRING = 'postgres://postgres:juanesloco123@localhost:5434/postgres'
 
+console.log(process.env.CONNECTION)
 
-const options = {
+const options: CorsOptions = {
   origin: '*',
 };
 
@@ -16,7 +17,7 @@ app.use(cors(options));
 app.use(
   '/back',
   postgraphile(
-    CONNECTION_STRING,
+    process.env.CONNECTION,
     [
       'administracion',
       'aplicacion',
@@ -30,6 +31,6 @@ app.use(
   )
 );
 
-app.listen(PORT, () => {
-  console.log('Server running in port ' + PORT)
+app.listen(process.env.PORT, () => {
+  console.log('Server running in port ' + process.env.PORT)
 });
