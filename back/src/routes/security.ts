@@ -1,19 +1,40 @@
 import express from 'express'
-import { clientPG } from '../database/connection'
+// import { clientPG } from '../database/connection'
 
 const router = express.Router()
 
 require('dotenv').config()
 
-clientPG.connect((err) => {
-  if (err) {
-    console.log(err)
-  } else {
-    console.log('Data loggin initiated')
-  }
+router.post('/login', (req, res) => {
+  console.log(req.body)
+  res.status(200).send('cumple')
 })
 
-router.get('/login', (req, res) => {
+router.post('/', (req, res) => {
+  console.log(req.body)
+  res.status(200).send('cumple')
+})
+
+router.post('/asd', (req, res) => {
+  console.log(req.body)
+  res.status(200).send('cumple')
+})
+
+
+
+router.post('/register', (req, res) => {
+  const {
+    nombre,
+    apellido,
+    id_tipo_documento,
+    identificacion,
+    correo_electronico,
+    password,
+  } = req.body;
+  
+  
+
+
   console.log(req.body)
   res.status(200).send('cumple')
 })

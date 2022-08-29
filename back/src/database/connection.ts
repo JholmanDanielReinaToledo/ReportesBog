@@ -1,3 +1,3 @@
-import { Client } from 'pg'
+// import { Client } from 'pg'
 
-export const clientPG = new Client(process.env.CONNECTION_STRING)
+// export const clientPG = new Client(process.env.DB_URL)

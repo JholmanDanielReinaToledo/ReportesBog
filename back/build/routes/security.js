@@ -4,18 +4,22 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const connection_1 = require("../database/connection");
+// import { clientPG } from '../database/connection'
 const router = express_1.default.Router();
 require('dotenv').config();
-connection_1.clientPG.connect((err) => {
-    if (err) {
-        console.log(err);
-    }
-    else {
-        console.log('Data loggin initiated');
-    }
+router.post('/login', (req, res) => {
+    console.log(req.body);
+    res.status(200).send('cumple');
 });
-router.get('/login', (req, res) => {
+router.post('/', (req, res) => {
+    console.log(req.body);
+    res.status(200).send('cumple');
+});
+router.post('/asd', (req, res) => {
+    console.log(req.body);
+    res.status(200).send('cumple');
+});
+router.post('/register', (req, res) => {
     console.log(req.body);
     res.status(200).send('cumple');
 });

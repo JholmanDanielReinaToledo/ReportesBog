@@ -1,6 +1,7 @@
 import express from 'express'
 import cors, { CorsOptions } from 'cors'
 import { postgraphile } from 'postgraphile'
+import router from './routes/security'
 
 require('dotenv').config()
 
@@ -11,6 +12,8 @@ const options: CorsOptions = {
 };
 
 app.use(cors(options));
+
+app.use(router)
 
 app.use(
   '/back',
