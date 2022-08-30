@@ -10,4 +10,4 @@ export const schemaUser = {
   }
 };
 
-https://www.npmjs.com/package/schema-validator
+//https://www.npmjs.com/package/schema-validator
