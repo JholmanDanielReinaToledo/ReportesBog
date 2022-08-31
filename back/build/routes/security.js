@@ -22,15 +22,6 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -41,10 +32,18 @@ const Joi = __importStar(require("joi"));
 //import jwt from "jsonwebtoken";
 // import { clientPG } from '../database/connection'
 const router = express_1.default.Router();
-require('dotenv').config();
+const loginBodyReq = Joi.object({
+    usuario: Joi.string().required(),
+    password: Joi.string().required()
+});
 router.post('/login', (req, res) => {
+    const { error } = loginBodyReq.validate(req.body);
     console.log(req.body);
-    res.status(200).send('cumple');
+    if (error) {
+        console.log("error");
+        return res.status(400).json({ error: error.details[0].message });
+    }
+    res.status(200).send(req.body);
 });
 router.post('/', (req, res) => {
     console.log(req.body);
@@ -54,8 +53,9 @@ router.post('/asd', (req, res) => {
     console.log(req.body);
     res.status(200).send('cumple');
 });
-/*
 router.post('/register', (req, res) => {
+    const { nombre, apellido, id_tipo_documento, identificacion, correo_electronico, password, } = req.body;
+    console.log(nombre, apellido, id_tipo_documento, identificacion, correo_electronico, password);
     console.log(req.body);
     res.status(200).send('cumple');
 });

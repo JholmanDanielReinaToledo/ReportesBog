@@ -1,6 +1,7 @@
 import express from 'express'
 //const Joi = require("joi"); 
 import * as Joi from "joi";
+import { loginBodyReq } from '../validators/user';
 //import jwt from "jsonwebtoken";
 
 // import { clientPG } from '../database/connection'
@@ -8,8 +9,17 @@ import * as Joi from "joi";
 const router = express.Router()
 
 router.post('/login', (req, res) => {
-  console.log(req.body)
-  res.status(200).send('cumple')  
+
+  const { error } = loginBodyReq.validate(req.body);
+  console.log(req.body);
+
+  if (error) {
+    console.log("error")
+    return res.status(400).json({ error: error.details[0].message });
+  }
+
+
+  res.status(200).send(req.body)
 })
 
 
