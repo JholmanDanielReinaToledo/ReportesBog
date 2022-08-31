@@ -6,7 +6,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 // import { clientPG } from '../database/connection'
 const router = express_1.default.Router();
-require('dotenv').config();
 router.post('/login', (req, res) => {
     console.log(req.body);
     res.status(200).send('cumple');
@@ -20,6 +19,8 @@ router.post('/asd', (req, res) => {
     res.status(200).send('cumple');
 });
 router.post('/register', (req, res) => {
+    const { nombre, apellido, id_tipo_documento, identificacion, correo_electronico, password, } = req.body;
+    console.log(nombre, apellido, id_tipo_documento, identificacion, correo_electronico, password);
     console.log(req.body);
     res.status(200).send('cumple');
 });

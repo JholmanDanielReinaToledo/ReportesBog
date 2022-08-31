@@ -2,6 +2,7 @@ import express from 'express'
 import cors, { CorsOptions } from 'cors'
 import { postgraphile } from 'postgraphile'
 import router from './routes/security'
+import bodyParser from 'body-parser'
 
 require('dotenv').config()
 
@@ -11,6 +12,7 @@ const options: CorsOptions = {
   origin: '*',
 };
 
+app.use(bodyParser.json())
 app.use(cors(options));
 
 app.use(router)
