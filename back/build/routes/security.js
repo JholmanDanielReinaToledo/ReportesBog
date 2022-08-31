@@ -42,19 +42,10 @@ const Joi = __importStar(require("joi"));
 // import { clientPG } from '../database/connection'
 const router = express_1.default.Router();
 require('dotenv').config();
-const loginBodyReq = Joi.object({
-    usuario: Joi.string().required(),
-    password: Joi.string().required()
-});
-router.post('/login', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { error } = yield loginBodyReq.validate(req.body);
+router.post('/login', (req, res) => {
     console.log(req.body);
-    if (error) {
-        console.log("error");
-        return res.status(400).json({ error: error.details[0].message });
-    }
-    res.status(200).send(loginBodyReq);
-}));
+    res.status(200).send('cumple');
+});
 router.post('/', (req, res) => {
     console.log(req.body);
     res.status(200).send('cumple');
@@ -65,20 +56,7 @@ router.post('/asd', (req, res) => {
 });
 /*
 router.post('/register', (req, res) => {
-  const {
-    nombre,
-    apellido,
-    id_tipo_documento,
-    identificacion,
-    correo_electronico,
-    password,
-  } = req.body;
-  
-
-
-
-  console.log(req.body)
-  res.status(200).send('cumple')
-})
-*/
+    console.log(req.body);
+    res.status(200).send('cumple');
+});
 exports.default = router;
