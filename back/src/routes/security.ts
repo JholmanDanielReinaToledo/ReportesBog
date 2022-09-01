@@ -15,7 +15,7 @@ router.post('/login', (req, res) => {
 
   if (error) {
     console.log("error")
-    return res.status(400).json({ error: error.details[0].message });
+    return res.status(400).json({ error: error.details });
   }
 
 
@@ -34,28 +34,16 @@ router.post('/asd', (req, res) => {
 })
 
 router.post('/register', (req, res) => {
-  const {
-    nombre,
-    apellido,
-    id_tipo_documento,
-    identificacion,
-    correo_electronico,
-    password,
-  } = req.body;
+  const { error } = loginBodyReq.validate(req.body);
 
+  if (error) {
+    console.log("error")
+    return res.status(400).json({ error: error.details });
+  }
 
   
-  console.log(
-    nombre,
-    apellido,
-    id_tipo_documento,
-    identificacion,
-    correo_electronico,
-    password
-  )
 
-  console.log(req.body)
-  res.status(200).send('cumple')
+  return res.status(200).send('created')
 })
 
 export default router

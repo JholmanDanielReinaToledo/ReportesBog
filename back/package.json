@@ -18,6 +18,10 @@
   },
   "dependencies": {
     "@graphile/postgis": "^0.1.0",
+    "@types/lodash": "^4.14.184",
+    "apollo-cache-inmemory": "^1.6.6",
+    "apollo-client": "^2.6.10",
+    "apollo-link-http": "^1.5.17",
     "bcrypt": "^5.0.1",
     "body-parser": "^1.20.0",
     "cors": "^2.8.5",
@@ -25,6 +29,7 @@
     "express": "4.18.1",
     "joi": "^17.6.0",
     "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.21",
     "morgan": "^1.10.0",
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",

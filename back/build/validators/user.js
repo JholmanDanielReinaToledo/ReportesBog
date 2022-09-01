@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.validateNewUser = void 0;
+exports.loginBodyReq = exports.validateNewUser = void 0;
 const joi_1 = __importDefault(require("joi"));
 exports.validateNewUser = {
     nombre: joi_1.default.string().required(),
@@ -13,4 +13,8 @@ exports.validateNewUser = {
     correo_electronico: joi_1.default.string().email().required(),
     password: joi_1.default.string().required(),
 };
+exports.loginBodyReq = joi_1.default.object({
+    usuario: joi_1.default.string().required(),
+    password: joi_1.default.string().required()
+});
 // https://www.npmjs.com/package/schema-validator
