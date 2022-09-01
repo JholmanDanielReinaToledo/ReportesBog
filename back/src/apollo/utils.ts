@@ -1,12 +1,19 @@
 import { InMemoryCache } from "apollo-cache-inmemory";
+import fetch from 'node-fetch';
 import ApolloClient, { ApolloQueryResult, DefaultOptions } from "apollo-client";
 import { HttpLink } from "apollo-link-http";
 import { isEmpty, isString } from "lodash";
+import { Request, Response } from 'express';
+import QueryString from 'qs';
+
+export type Req = Request<any, any, any, QueryString.ParsedQs, Record<string, any>>;
+export type Res = Response<any, any>;
 
 const direccion = 'http://localhost:5000/';
 
 const link = new HttpLink({
-  uri: `${direccion}/back/graphql`,
+  uri: `${direccion}back/graphql`,
+  // @ts-ignore
   fetch,
 });
 
@@ -31,9 +38,8 @@ const client = new ApolloClient({
 
 const genericOperation = <T, >(opType: 'mutate' | 'query') => async (
   gql: any,
-  req?: any,
   variables?: any,
-  res?: any,
+  res?: Res,
 ): Promise<ApolloQueryResult<T> | any> => {
   try {
     const operation = await (opType === 'mutate' ? client.mutate<T>({
@@ -55,7 +61,7 @@ const genericOperation = <T, >(opType: 'mutate' | 'query') => async (
     }
     return operation;
   } catch (error) {
-    console.log(error, variables, req.headers);
+    console.log(error, variables);
     if (res) {
       return res.status(403).send(error);
     }
