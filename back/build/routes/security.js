@@ -7,19 +7,20 @@ const express_1 = __importDefault(require("express"));
 const user_1 = require("../validators/user");
 const bcrypt_1 = require("bcrypt");
 const functions_1 = require("../apollo/functions");
-//import jwt from "jsonwebtoken";
 const saltRounds = 10;
 const myPlaintextPassword = 's0/\/\P4$$w0rD';
 const someOtherPlaintextPassword = 'not_bacon';
 const router = express_1.default.Router();
 router.post('/login', (req, res) => {
     const { error } = user_1.loginBodyReq.validate(req.body);
-    console.log(req.body);
     if (error) {
         console.log("error");
         return res.status(400).json({ error: error.details });
     }
-    res.status(200).send(req.body);
+    const body = req.body;
+    const password = body.password;
+    const correo_electronico = body;
+    res.status(200).send(body);
 });
 router.post('/', (req, res) => {
     console.log(req.body);

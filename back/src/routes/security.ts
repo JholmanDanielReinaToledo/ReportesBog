@@ -2,7 +2,7 @@ import express from 'express'
 import { loginBodyReq, validateNewUser } from '../validators/user';
 import { hash } from 'bcrypt';
 import { insertNewUser } from '../apollo/functions';
-//import jwt from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 
 const saltRounds = 10;
 const myPlaintextPassword = 's0/\/\P4$$w0rD';
@@ -13,14 +13,18 @@ const router = express.Router()
 router.post('/login', (req, res) => {
 
   const { error } = loginBodyReq.validate(req.body);
-  console.log(req.body);
 
   if (error) {
     console.log("error")
     return res.status(400).json({ error: error.details });
   }
 
-  res.status(200).send(req.body)
+  const body = req.body;
+
+  const password = body.password;
+  const correo_electronico = body;
+
+  res.status(200).send(body);
 })
 
 router.post('/', (req, res) => {

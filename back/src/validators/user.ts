@@ -10,7 +10,7 @@ export const validateNewUser = Joi.object({
 });
 
 export const loginBodyReq = Joi.object({
-  usuario: Joi.string().required(),
+  correo_electronico: Joi.string().required(),
   password: Joi.string().required(),
 });
 
