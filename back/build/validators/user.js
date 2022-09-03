@@ -14,7 +14,7 @@ exports.validateNewUser = joi_1.default.object({
     password: joi_1.default.string().required(),
 });
 exports.loginBodyReq = joi_1.default.object({
-    correo_electronico: joi_1.default.string().required(),
-    password: joi_1.default.string().required(),
+    correo_electronico: joi_1.default.string().required().email(),
+    password: joi_1.default.string().required().min(5),
 });
 // https://www.npmjs.com/package/schema-validator

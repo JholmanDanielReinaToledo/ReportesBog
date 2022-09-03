@@ -10,8 +10,8 @@ export const validateNewUser = Joi.object({
 });
 
 export const loginBodyReq = Joi.object({
-  correo_electronico: Joi.string().required(),
-  password: Joi.string().required(),
+  correo_electronico: Joi.string().required().email(),
+  password: Joi.string().required().min(5),
 });
 
 // https://www.npmjs.com/package/schema-validator

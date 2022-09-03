@@ -3,6 +3,8 @@ import { loginBodyReq, validateNewUser } from '../validators/user';
 import { hash } from 'bcrypt';
 import { insertNewUser } from '../apollo/functions';
 import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
+import { encrypt } from '../utilities/encryption';
 
 const saltRounds = 10;
 const myPlaintextPassword = 's0/\/\P4$$w0rD';
@@ -10,7 +12,10 @@ const someOtherPlaintextPassword = 'not_bacon';
 
 const router = express.Router()
 
-router.post('/login', (req, res) => {
+const mockUserEmail = "jguerrap1@ucentral.edu.co";
+const mockUserPassword = "$2b$10$a1/W3LrlRpyxt4OuIbkbN.wSu4W45y9cNIy6J2S5c/XYaHIrSy5Ca";
+
+router.post('/login', async (req, res) => {
 
   const { error } = loginBodyReq.validate(req.body);
 
@@ -22,7 +27,28 @@ router.post('/login', (req, res) => {
   const body = req.body;
 
   const password = body.password;
-  const correo_electronico = body;
+  const correo_electronico = body.correo_electronico;
+
+  /*
+  const userPasswordEncrypt = await bcrypt.hash(password, saltRounds);
+
+  console.log(mockUserPassword);
+  console.log(userPasswordEncrypt);
+
+  const isPasswordValid = await bcrypt.compare(userPasswordEncrypt, mockUserPassword);
+  console.log(isPasswordValid);
+  
+
+  if(!isPasswordValid) return res.status(200).send("Wrong Password");
+*/
+
+  const passwordEnc = encrypt(password);
+
+  console.log(passwordEnc);
+  
+  //const passwordDec = encrypt(passwordEnc.encryptedData,passwordEnc.iv);
+
+  //console.log(passwordDec);
 
   res.status(200).send(body);
 })
