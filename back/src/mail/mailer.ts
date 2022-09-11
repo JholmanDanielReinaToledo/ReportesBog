@@ -1,8 +1,10 @@
 import { Message, SMTPClient } from 'emailjs'
 
+require('dotenv').config()
+
 const client = new SMTPClient({
-  user: 'testingnodejs8@gmail.com',
-  password: 'rfytvkqlgtxsjysd', // Testing8@12_
+  user: process.env.USER_MAIL,
+  password: process.env.PASS_MAIL,
   host: 'smtp.gmail.com',
   ssl: true,
 })
