@@ -3,9 +3,9 @@ import Joi from "joi";
 export const validateNewUser = Joi.object({
   nombre: Joi.string().required(),
   apellido: Joi.string().required(),
-  id_tipo_documento: Joi.number().required(),
+  idTipoDocumento: Joi.number().required(),
   identificacion: Joi.string().required(),
-  correo_electronico: Joi.string().email().required(),
+  correoElectronico: Joi.string().email().required(),
   password: Joi.string().required(),
 });
 

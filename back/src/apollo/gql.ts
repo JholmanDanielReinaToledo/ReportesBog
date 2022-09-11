@@ -1,7 +1,7 @@
 import { gql } from "postgraphile";
 
 export const INSERT_NEW_USER = gql`
-  mutation insertNewUser ($data: UsuarioInput!) {
+mutation insertNewUser ($data: CreateUsuarioInput!) {
     createUsuario(input: $data) {
       usuario {
         id

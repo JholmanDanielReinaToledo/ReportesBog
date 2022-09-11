@@ -67,9 +67,9 @@ router.post('/register', (req, res) => {
     (0, bcrypt_1.hash)(req.body.password, saltRounds, function (err, hash) {
         console.log(err, hash);
         if (hash) {
-            (0, functions_1.insertNewUser)(Object.assign(Object.assign({}, req.body), { password: hash }), res).then(console.log).catch(console.log);
-            return res.status(200).send();
+            return (0, functions_1.insertNewUser)(Object.assign(Object.assign({}, req.body), { password: hash }), res).then((respo) => console.log(respo)).catch((respo) => console.log(respo));
         }
+        return res.status(400).send();
     });
 });
 exports.default = router;

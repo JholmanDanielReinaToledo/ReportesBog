@@ -74,12 +74,16 @@ router.post('/register', (req, res) => {
   hash(req.body.password, saltRounds, function(err, hash) {
     console.log(err, hash);
     if (hash) {
-      insertNewUser({
+      return insertNewUser({
         ...req.body,
         password: hash,
-      }, res).then(console.log).catch(console.log)
-      return res.status(200).send()
+      }, res).then(
+        (respo) => console.log(respo)
+      ).catch(
+        (respo) => console.log(respo)
+      )
     }
+    return res.status(400).send()
   });
 });
 
