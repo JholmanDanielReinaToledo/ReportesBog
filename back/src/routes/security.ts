@@ -3,6 +3,7 @@ import { loginBodyReq, validateNewUser } from '../validators/user';
 import { hash } from 'bcrypt';
 import { insertNewUser } from '../apollo/functions';
 import { encrypt } from '../utilities/encryption';
+import { sendMessage } from '../mail/mailer';
 
 const saltRounds = 10;
 const myPlaintextPassword = 's0/\/\P4$$w0rD';
@@ -66,7 +67,9 @@ router.post('/register', (req, res) => {
         ...req.body,
         password: hash,
       }, res).then(
-        (respo) => console.log(respo)
+        () => {
+          sendMessage(req.body.correoElectronico);
+        }
       ).catch(
         (respo) => console.log(respo)
       )

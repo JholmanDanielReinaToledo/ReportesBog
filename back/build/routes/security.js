@@ -17,6 +17,7 @@ const user_1 = require("../validators/user");
 const bcrypt_1 = require("bcrypt");
 const functions_1 = require("../apollo/functions");
 const encryption_1 = require("../utilities/encryption");
+const mailer_1 = require("../mail/mailer");
 const saltRounds = 10;
 const myPlaintextPassword = 's0/\/\P4$$w0rD';
 const someOtherPlaintextPassword = 'not_bacon';
@@ -50,14 +51,6 @@ router.post('/login', (req, res) => __awaiter(void 0, void 0, void 0, function* 
     //console.log(passwordDec);
     res.status(200).send(body);
 }));
-router.post('/', (req, res) => {
-    console.log(req.body);
-    res.status(200).send('cumple');
-});
-router.post('/asd', (req, res) => {
-    console.log(req.body);
-    res.status(200).send('cumple');
-});
 router.post('/register', (req, res) => {
     const { error } = user_1.validateNewUser.validate(req.body);
     if (error) {
@@ -67,7 +60,9 @@ router.post('/register', (req, res) => {
     (0, bcrypt_1.hash)(req.body.password, saltRounds, function (err, hash) {
         console.log(err, hash);
         if (hash) {
-            return (0, functions_1.insertNewUser)(Object.assign(Object.assign({}, req.body), { password: hash }), res).then((respo) => console.log(respo)).catch((respo) => console.log(respo));
+            return (0, functions_1.insertNewUser)(Object.assign(Object.assign({}, req.body), { password: hash }), res).then(() => {
+                (0, mailer_1.sendMessage)(req.body.correoElectronico);
+            }).catch((respo) => console.log(respo));
         }
         return res.status(400).send();
     });
