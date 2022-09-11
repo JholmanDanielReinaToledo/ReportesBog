@@ -2,8 +2,6 @@ import express from 'express'
 import { loginBodyReq, validateNewUser } from '../validators/user';
 import { hash } from 'bcrypt';
 import { insertNewUser } from '../apollo/functions';
-import jwt from "jsonwebtoken";
-import bcrypt from "bcrypt";
 import { encrypt } from '../utilities/encryption';
 
 const saltRounds = 10;
@@ -51,16 +49,6 @@ router.post('/login', async (req, res) => {
   //console.log(passwordDec);
 
   res.status(200).send(body);
-})
-
-router.post('/', (req, res) => {
-  console.log(req.body)
-  res.status(200).send('cumple')
-})
-
-router.post('/asd', (req, res) => {
-  console.log(req.body)
-  res.status(200).send('cumple')
 })
 
 router.post('/register', (req, res) => {
