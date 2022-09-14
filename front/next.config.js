@@ -1,7 +1,4 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  reactStrictMode: true,
-  swcMinify: true,
-}
-
-module.exports = nextConfig
+const withLess = require('@zeit/next-less');
+module.exports = withLess({
+  /* config options here */
+});

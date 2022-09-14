@@ -1,0 +1,52 @@
+@import '~antd/lib/style/color/colors';
+
+@primary-color: @cyan-8;
+
+@error-color: #ff2b2b;
+
+@success-color: @green-base;
+
+// Background color for `<body>`
+@body-background: #F0F2F5;
+// Base background color for most components
+@component-background: #fff;
+
+@modal-header-bg: @primary-color;
+@modal-close-color: white;
+
+[class*=~'ant-modal-title']{
+  color: white;
+  font-weight: 700;
+}
+
+@card-radius: 4px;
+// gris 1: e1eff0
+// gris 2: dde9ea 
+
+
+// customize scrolls
+
+*{
+  scrollbar-color: @primary-color #e0e0e0;
+  scrollbar-width: thin;
+}
+ /* width */
+ *::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Handle */
+*::-webkit-scrollbar-thumb {
+  background: fade(@component-background, 50%);
+  transition: 0.2s ease;
+}
+
+/* Handle on hover */
+*::-webkit-scrollbar-thumb:hover {
+  background: fade(@component-background, 100%);
+} 
