@@ -6,11 +6,12 @@ export const validateNewUser = Joi.object({
   idTipoDocumento: Joi.number().required(),
   identificacion: Joi.string().required(),
   correoElectronico: Joi.string().email().required(),
-  password: Joi.string().required(),
+  password: Joi.string().required().min(5),
 });
 
 export const loginBodyReq = Joi.object({
-  correo_electronico: Joi.string().required().email(),
+  identificacion: Joi.string(),
+  // correoElectronico: Joi.string().required().email(),
   password: Joi.string().required().min(5),
 });
 

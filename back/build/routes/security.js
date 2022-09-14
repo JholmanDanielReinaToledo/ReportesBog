@@ -16,40 +16,50 @@ const express_1 = __importDefault(require("express"));
 const user_1 = require("../validators/user");
 const bcrypt_1 = require("bcrypt");
 const functions_1 = require("../apollo/functions");
-const encryption_1 = require("../utilities/encryption");
 const mailer_1 = require("../mail/mailer");
+const jsonwebtoken_1 = require("jsonwebtoken");
+const moment_1 = __importDefault(require("moment"));
+require('dotenv').config();
 const saltRounds = 10;
-const myPlaintextPassword = 's0/\/\P4$$w0rD';
-const someOtherPlaintextPassword = 'not_bacon';
 const router = express_1.default.Router();
-const mockUserEmail = "jguerrap1@ucentral.edu.co";
-const mockUserPassword = "$2b$10$a1/W3LrlRpyxt4OuIbkbN.wSu4W45y9cNIy6J2S5c/XYaHIrSy5Ca";
 router.post('/login', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { error } = user_1.loginBodyReq.validate(req.body);
     if (error) {
         console.log("error");
         return res.status(400).json({ error: error.details });
     }
-    const body = req.body;
-    const password = body.password;
-    const correo_electronico = body.correo_electronico;
-    /*
-    const userPasswordEncrypt = await bcrypt.hash(password, saltRounds);
-  
-    console.log(mockUserPassword);
-    console.log(userPasswordEncrypt);
-  
-    const isPasswordValid = await bcrypt.compare(userPasswordEncrypt, mockUserPassword);
-    console.log(isPasswordValid);
-    
-  
-    if(!isPasswordValid) return res.status(200).send("Wrong Password");
-  */
-    const passwordEnc = (0, encryption_1.encrypt)(password);
-    console.log(passwordEnc);
-    //const passwordDec = encrypt(passwordEnc.encryptedData,passwordEnc.iv);
-    //console.log(passwordDec);
-    res.status(200).send(body);
+    const { password, identificacion } = req.body;
+    return (0, functions_1.getUserByIdentificacion)(identificacion).then((re) => {
+        const { data } = re;
+        const { usuarioByIdentificacion } = data;
+        return (0, bcrypt_1.compare)(password, usuarioByIdentificacion.password, function (err, result) {
+            if (result && usuarioByIdentificacion.activo) {
+                // arma el jwt y lo devuelve
+                if (process.env.TOKEN_SECRET) {
+                    const date = (0, moment_1.default)().add(40, 'minute').calendar();
+                    console.log(date);
+                    const token = (0, jsonwebtoken_1.sign)({
+                        name: usuarioByIdentificacion.identificacion,
+                        id: usuarioByIdentificacion.id,
+                        correoElectronico: usuarioByIdentificacion.correoElectronico,
+                        expirationDate: date,
+                    }, process.env.TOKEN_SECRET);
+                    console.log(token);
+                    return res.status(200).send(token);
+                }
+                else {
+                    return res.status(500).send('Error 00F1');
+                }
+            }
+            else if (!usuarioByIdentificacion.activo) {
+                return res.status(403).send('El usuario no esta activo');
+            }
+            else {
+                return res.status(403).send('No se encontro un usuario con esa identificación');
+            }
+        });
+        // return res.status(200).send()
+    }).catch((err) => res.status(500).send(err));
 }));
 router.post('/register', (req, res) => {
     const { error } = user_1.validateNewUser.validate(req.body);

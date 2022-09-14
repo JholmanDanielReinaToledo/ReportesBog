@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.INSERT_NEW_USER = void 0;
+exports.GET_USER_BY_IDENTIFICACION = exports.INSERT_NEW_USER = void 0;
 const postgraphile_1 = require("postgraphile");
 exports.INSERT_NEW_USER = (0, postgraphile_1.gql) `
 mutation insertNewUser ($data: CreateUsuarioInput!) {
@@ -17,4 +17,15 @@ mutation insertNewUser ($data: CreateUsuarioInput!) {
       }
     }
   }
+`;
+exports.GET_USER_BY_IDENTIFICACION = (0, postgraphile_1.gql) `
+query getUserByIdentificacion($identificacion: String!) {
+  usuarioByIdentificacion (identificacion: $identificacion) {
+    id
+    identificacion
+    correoElectronico
+    password
+    activo
+  }
+}
 `;

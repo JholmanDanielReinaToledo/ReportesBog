@@ -1,6 +1,6 @@
 import { User } from "../types";
-import { INSERT_NEW_USER } from "./gql";
-import { mutate, Res } from "./utils";
+import { GET_USER_BY_IDENTIFICACION, INSERT_NEW_USER } from "./gql";
+import { mutate, query, Res } from "./utils";
 
 export const insertNewUser = (user: User, res: Res) => mutate(
   INSERT_NEW_USER,
@@ -9,3 +9,11 @@ export const insertNewUser = (user: User, res: Res) => mutate(
   } },
   res,
 );
+
+export const getUserByIdentificacion = (identificacion: string) => query(
+  GET_USER_BY_IDENTIFICACION,
+  {
+    identificacion,
+  }
+)
+

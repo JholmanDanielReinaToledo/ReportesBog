@@ -16,3 +16,15 @@ mutation insertNewUser ($data: CreateUsuarioInput!) {
     }
   }
 `;
+
+export const GET_USER_BY_IDENTIFICACION = gql`
+query getUserByIdentificacion($identificacion: String!) {
+  usuarioByIdentificacion (identificacion: $identificacion) {
+    id
+    identificacion
+    correoElectronico
+    password
+    activo
+  }
+}
+`;

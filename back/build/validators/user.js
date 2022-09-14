@@ -11,10 +11,11 @@ exports.validateNewUser = joi_1.default.object({
     idTipoDocumento: joi_1.default.number().required(),
     identificacion: joi_1.default.string().required(),
     correoElectronico: joi_1.default.string().email().required(),
-    password: joi_1.default.string().required(),
+    password: joi_1.default.string().required().min(5),
 });
 exports.loginBodyReq = joi_1.default.object({
-    correo_electronico: joi_1.default.string().required().email(),
+    identificacion: joi_1.default.string(),
+    // correoElectronico: Joi.string().required().email(),
     password: joi_1.default.string().required().min(5),
 });
 // https://www.npmjs.com/package/schema-validator
