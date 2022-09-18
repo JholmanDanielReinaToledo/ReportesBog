@@ -18,7 +18,7 @@ const node_fetch_1 = __importDefault(require("node-fetch"));
 const apollo_client_1 = __importDefault(require("apollo-client"));
 const apollo_link_http_1 = require("apollo-link-http");
 const lodash_1 = require("lodash");
-const direccion = 'http://localhost:5000/';
+const direccion = 'http://localhost:5432/';
 const link = new apollo_link_http_1.HttpLink({
     uri: `${direccion}back/graphql`,
     // @ts-ignore

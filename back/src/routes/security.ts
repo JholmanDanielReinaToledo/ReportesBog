@@ -2,7 +2,7 @@ import express from 'express'
 import { loginBodyReq, validateNewUser } from '../validators/user';
 import { hash, compare } from 'bcrypt';
 import { getUserByIdentificacion, insertNewUser } from '../apollo/functions';
-import { sendMessage } from '../mail/mailer';
+// import { sendMessage } from '../mail/mailer';
 import { sign } from 'jsonwebtoken';
 import moment from 'moment';
 
@@ -70,7 +70,7 @@ router.post('/register', (req, res) => {
         password: hash,
       }, res).then(
         () => {
-          sendMessage(req.body.correoElectronico);
+          // sendMessage(req.body.correoElectronico);
         }
       ).catch(
         (respo) => console.log(respo)

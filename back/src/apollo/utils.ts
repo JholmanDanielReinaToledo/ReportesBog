@@ -9,7 +9,7 @@ import QueryString from 'qs';
 export type Req = Request<any, any, any, QueryString.ParsedQs, Record<string, any>>;
 export type Res = Response<any, any>;
 
-const direccion = 'http://localhost:5000/';
+const direccion = 'http://localhost:5432/';
 
 const link = new HttpLink({
   uri: `${direccion}back/graphql`,

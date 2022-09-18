@@ -16,7 +16,7 @@ const express_1 = __importDefault(require("express"));
 const user_1 = require("../validators/user");
 const bcrypt_1 = require("bcrypt");
 const functions_1 = require("../apollo/functions");
-const mailer_1 = require("../mail/mailer");
+// import { sendMessage } from '../mail/mailer';
 const jsonwebtoken_1 = require("jsonwebtoken");
 const moment_1 = __importDefault(require("moment"));
 require('dotenv').config();
@@ -71,7 +71,7 @@ router.post('/register', (req, res) => {
         console.log(err, hash);
         if (hash) {
             return (0, functions_1.insertNewUser)(Object.assign(Object.assign({}, req.body), { password: hash }), res).then(() => {
-                (0, mailer_1.sendMessage)(req.body.correoElectronico);
+                // sendMessage(req.body.correoElectronico);
             }).catch((respo) => console.log(respo));
         }
         return res.status(400).send();
