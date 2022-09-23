@@ -1,0 +1,50 @@
+.container {
+  background: #ff0000;
+  display: inline-block;
+  height: 100vh;
+  vertical-align: top;
+  width: 100%;
+}
+.contenedor {
+  border-right: solid 8px var(--secondary);
+  display: inline-block;
+  height: 50%;
+  vertical-align: top;
+  width: 100%;
+}
+.layout {
+  display: inline-block;
+  height: 100%;
+  vertical-align: top;
+}
+.layout1 {
+  width: 50%;
+  background: white;
+  background-image: url(/images/1.jpeg);
+  background-size: cover;
+}
+.layout2 {
+  width: 50%;
+  background: white;
+  background-image: url(/images/2.jpg);
+  background-size: cover;
+}
+.layout3 {
+  width: 50%;
+  background: white;
+  background-image: url(/images/3.jpg);
+  background-size: cover;
+}
+.layout4 {
+  width: 50%;
+  background: white;
+  background-image: url(/images/4.jpeg);
+  background-size: cover;
+}
+.loginContainer {
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  width: fit-content;
+  transform: translateX(50%) translateY(-50%);
+}

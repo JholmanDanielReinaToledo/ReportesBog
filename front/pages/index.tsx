@@ -7,19 +7,23 @@ import Head from 'next/head'
 import Image from 'next/image'
 import SpinFC from 'antd/lib/spin';
 import styles from '../styles/Home.module.less';
+import LoginForm from '../src/common/LoginForm';
+import { UsuarioLogin } from '../src/common/types';
+import { login } from '../src/functions/users';
 
 const Home: NextPage = () => {
   const [token, setToken] = useState();
   const [isLoading, setIsLoading] = useState(false);
 
-  const login = () => {
-
+  const loginS = (values: UsuarioLogin) => {
+    console.log(values)
+    login(values)
   }
 
   return (
     <Layout className={styles.container}>
     <Head>
-      <title>SISDEP</title>
+      <title>REPORTES BOG</title>
     </Head>
 
     <Layout className={styles.contenedor}>
@@ -45,15 +49,9 @@ const Home: NextPage = () => {
             <Spin />
           )
           : (
-            <>{
-              /**
-               * <LoginForm
-                onSubmit={loguear}
+            <LoginForm
+                onSubmit={loginS}
               />
-               */
-            }
-              Formulario
-            </>
           )
       }
 

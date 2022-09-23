@@ -1,0 +1,42 @@
+[class*=~'ant-input'] {
+  border-radius: 4px;
+}
+[class*=~'ant-select'] {
+  border-radius: 4px !important;
+}
+[class*=~'ant-form-item'] {
+  margin-bottom: 0.15em !important;
+}
+
+.input {
+  display: block;
+  min-width: 200px ;
+  width: 100% !important;
+}
+
+.inputTitle {
+  display: inline-block;
+  margin-bottom: 0;
+}
+
+.inputPassword {
+  min-width: 200px;
+}
+
+.required{
+  display: inline-block;
+  color: @error-color;
+  margin-bottom: 0px;
+}
+
+.sliderContainer {
+  margin-bottom: 0.5em;
+}
+
+.slider{
+  display: inline-block;
+  background-color: rgba(0, 0, 0, 0.25);
+  &[aria-checked=true]{
+    background-color: @success-color;
+  }
+}
