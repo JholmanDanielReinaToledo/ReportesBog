@@ -9,7 +9,7 @@ import InputPropio from './Components/Input';
 import { UsuarioLogin } from './types';
 
 type LoginFormProps = {
-  onSubmit: (values: Partial<UsuarioLogin>) => void;
+  onSubmit: (values: UsuarioLogin) => void;
 };
 
 const LoginForm: FC<LoginFormProps> = ({
@@ -22,7 +22,7 @@ const LoginForm: FC<LoginFormProps> = ({
       <h5 className={styles.titulo}>
         Reportes BOG
       </h5>
-      <Form<Partial<UsuarioLogin>>
+      <Form<UsuarioLogin>
         form={login}
         onFinish={onSubmit}
       >
