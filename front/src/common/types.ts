@@ -10,3 +10,13 @@ export type UsuarioLogin = {
   esActivo: boolean;
   idGrupo: number;
 };
+
+export type UsuarioLoginToken = {
+  id: string;
+  identificacion: string;
+  correoElectronico: string;
+  password: string;
+  activo: string;
+  __typename: string;
+  toke: string;
+}

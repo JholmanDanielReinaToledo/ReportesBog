@@ -1,24 +1,41 @@
-import { Button, Spin } from 'antd'
-
+import { Spin } from 'antd'
 import Layout from 'antd/lib/layout/layout'
 import type { NextPage } from 'next'
 import { useEffect, useState } from 'react';
 import Head from 'next/head'
-import Image from 'next/image'
-import SpinFC from 'antd/lib/spin';
 import styles from '../styles/Home.module.less';
 import LoginForm from '../src/common/LoginForm';
-import { UsuarioLogin } from '../src/common/types';
+import { UsuarioLogin, UsuarioLoginToken } from '../src/common/types';
 import { login } from '../src/functions/users';
+import { size } from 'lodash';
+import { useRouter } from 'next/router';
 
 const Home: NextPage = () => {
   const [token, setToken] = useState();
   const [isLoading, setIsLoading] = useState(false);
+  const { push } = useRouter();
 
-  const loginS = (values: UsuarioLogin) => {
-    console.log(values)
-    login(values)
-  }
+  const loginS = async (values: UsuarioLogin) => {
+    const loginValues: UsuarioLoginToken = await login(values);
+    console.log(loginValues);
+    if (loginValues?.id) {
+      window.localStorage.setItem(
+        'currentUser',
+        JSON.stringify(loginValues),
+      );
+      push('/reportes');
+    }
+  };
+
+  useEffect(() => {
+    const newUserString = window.localStorage.getItem('currentUser');
+    if (size(newUserString) > 0) {
+      const newUser = JSON.parse(newUserString || '');
+      if (newUser?.id) {
+        push('/reportes');
+      }
+    }
+  }, []);
 
   return (
     <Layout className={styles.container}>

@@ -44,8 +44,7 @@ router.post('/login', (req, res) => __awaiter(void 0, void 0, void 0, function* 
                         correoElectronico: usuarioByIdentificacion.correoElectronico,
                         expirationDate: date,
                     }, process.env.TOKEN_SECRET);
-                    console.log(token);
-                    return res.status(200).send(token);
+                    return res.status(200).json(Object.assign(Object.assign({}, usuarioByIdentificacion), { token }));
                 }
                 else {
                     return res.status(500).send('Error 00F1');

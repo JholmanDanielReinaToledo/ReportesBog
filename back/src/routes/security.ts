@@ -31,15 +31,16 @@ router.post('/login', async (req, res) => {
           // arma el jwt y lo devuelve
           if (process.env.TOKEN_SECRET) {
             const date = moment().add(40, 'minute').calendar();
-            console.log(date)
             const token = sign({
               name: usuarioByIdentificacion.identificacion,
               id: usuarioByIdentificacion.id,
               correoElectronico: usuarioByIdentificacion.correoElectronico,
               expirationDate: date,
             }, process.env.TOKEN_SECRET)
-            console.log(token)
-            return res.status(200).send(token)
+            return res.status(200).json({
+              ...usuarioByIdentificacion,
+              token,
+            })
           } else {
             return res.status(500).send('Error 00F1')
           }
