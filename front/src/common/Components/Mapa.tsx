@@ -1,4 +1,9 @@
-import { MapContainer, Marker, Popup, TileLayer, useMap } from 'react-leaflet';
+import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
+import IconLocation from './IconLocation';
+import { FireOutlined } from '@ant-design/icons';
+import { divIcon } from 'leaflet';
+
+const icon = divIcon({ className: 'leaflet-point-icon' });
 
 const Mapa = () => {
   // 4.664784406288559, -74.09862812026168
@@ -12,9 +17,9 @@ const Mapa = () => {
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-          <Marker position={[51.505, -0.09]}>
+          <Marker position={[4.66478, -74.098628]}>
             <Popup>
-              A pretty CSS3 popup. <br /> Easily customizable.
+              Icono
             </Popup>
           </Marker>
         </MapContainer>
