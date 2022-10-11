@@ -19,7 +19,7 @@ const Home: NextPage = () => {
     const loginValues: UsuarioLoginToken = await login(values);
     console.log(loginValues);
     if (loginValues?.id) {
-      window.localStorage.setItem(
+      window?.localStorage?.setItem(
         'currentUser',
         JSON.stringify(loginValues),
       );
@@ -28,7 +28,7 @@ const Home: NextPage = () => {
   };
 
   useEffect(() => {
-    const newUserString = window.localStorage.getItem('currentUser');
+    const newUserString = window?.localStorage?.getItem('currentUser');
     if (size(newUserString) > 0) {
       const newUser = JSON.parse(newUserString || '');
       if (newUser?.id) {

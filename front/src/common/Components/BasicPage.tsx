@@ -9,7 +9,7 @@ const BasicPage = ({children}) => {
   const { push } = useRouter();
 
   useEffect(() => {
-    const newUserString = window.localStorage.getItem('currentUser');
+    const newUserString = window?.localStorage?.getItem('currentUser');
     if (size(newUserString) > 0) {
       const newUser = JSON.parse(newUserString || '');
       if (newUser?.id) {
@@ -21,7 +21,9 @@ const BasicPage = ({children}) => {
   }, []);
 
   return (
-    <Layout>
+    <Layout style={{
+      height: '100vh',
+    }}>
     <Sider
       breakpoint="lg"
       collapsedWidth="0"
@@ -43,6 +45,7 @@ const BasicPage = ({children}) => {
           <Menu.Item onClick={() => push('/administracion/usuarios')}>Grupos y permisos</Menu.Item>
           <Menu.Item onClick={() => push('/administracion/dominios')}>Dominios</Menu.Item>
         </Menu.SubMenu>
+        <Menu.Item onClick={() => push('/reportes')}>Reportes</Menu.Item>
       </Menu>
     </Sider>
     <Layout>
@@ -52,7 +55,7 @@ const BasicPage = ({children}) => {
           {children}
         </div>
       </Content>
-      <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
+      <Footer style={{ textAlign: 'center' }}>Reportes BOG ©2022</Footer>
     </Layout>
   </Layout>
   );

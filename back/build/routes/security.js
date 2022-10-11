@@ -37,7 +37,6 @@ router.post('/login', (req, res) => __awaiter(void 0, void 0, void 0, function* 
                 // arma el jwt y lo devuelve
                 if (process.env.TOKEN_SECRET) {
                     const date = (0, moment_1.default)().add(40, 'minute').calendar();
-                    console.log(date);
                     const token = (0, jsonwebtoken_1.sign)({
                         name: usuarioByIdentificacion.identificacion,
                         id: usuarioByIdentificacion.id,
