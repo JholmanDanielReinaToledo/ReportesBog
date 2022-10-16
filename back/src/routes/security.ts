@@ -2,7 +2,7 @@ import express from 'express'
 import { loginBodyReq, validateNewUser } from '../validators/user';
 import { hash, compare } from 'bcrypt';
 import { getUserByIdentificacion, insertNewUser } from '../apollo/functions';
-import { sendMessage } from '../mail/mailer';
+// import { sendMessage } from '../mail/mailer';
 import { sign } from 'jsonwebtoken';
 import moment from 'moment';
 
@@ -37,22 +37,20 @@ router.post('/login', async (req, res) => {
               correoElectronico: usuarioByIdentificacion.correoElectronico,
               expirationDate: date,
             }, process.env.TOKEN_SECRET)
-            return res.status(200).json({
-              ...usuarioByIdentificacion,
-              token,
-            })
+            console.log(token)
+            return res.status(200).send(JSON.stringify({token: token}))
           } else {
-            return res.status(500).send('Error 00F1')
+            return res.status(500).send(JSON.stringify({error:'Error 00F1'}))
           }
         } else if (!usuarioByIdentificacion.activo){
-          return res.status(403).send('El usuario no esta activo')
+          return res.status(403).send(JSON.stringify({error:'El usuario no esta activo'}))
         } else {
-          return res.status(403).send('No se encontro un usuario con esa identificación')
+          return res.status(403).send(JSON.stringify({error :'No se encontro un usuario con esa identificación y contraseña'}))
         }
       });
       // return res.status(200).send()
     }
-  ).catch((err) => res.status(500).send(err))
+  ).catch((err) => res.status(500).send(JSON.stringify({error:"Usuario no encontrado"})))
 })
 
 router.post('/register', (req, res) => {
@@ -71,7 +69,7 @@ router.post('/register', (req, res) => {
         password: hash,
       }, res).then(
         () => {
-          sendMessage(req.body.correoElectronico);
+          // sendMessage(req.body.correoElectronico);
         }
       ).catch(
         (respo) => console.log(respo)

@@ -16,7 +16,7 @@ const express_1 = __importDefault(require("express"));
 const user_1 = require("../validators/user");
 const bcrypt_1 = require("bcrypt");
 const functions_1 = require("../apollo/functions");
-const mailer_1 = require("../mail/mailer");
+// import { sendMessage } from '../mail/mailer';
 const jsonwebtoken_1 = require("jsonwebtoken");
 const moment_1 = __importDefault(require("moment"));
 require('dotenv').config();
@@ -43,21 +43,22 @@ router.post('/login', (req, res) => __awaiter(void 0, void 0, void 0, function* 
                         correoElectronico: usuarioByIdentificacion.correoElectronico,
                         expirationDate: date,
                     }, process.env.TOKEN_SECRET);
-                    return res.status(200).json(Object.assign(Object.assign({}, usuarioByIdentificacion), { token }));
+                    console.log(token);
+                    return res.status(200).send(JSON.stringify({ token: token }));
                 }
                 else {
-                    return res.status(500).send('Error 00F1');
+                    return res.status(500).send(JSON.stringify({ error: 'Error 00F1' }));
                 }
             }
             else if (!usuarioByIdentificacion.activo) {
-                return res.status(403).send('El usuario no esta activo');
+                return res.status(403).send(JSON.stringify({ error: 'El usuario no esta activo' }));
             }
             else {
-                return res.status(403).send('No se encontro un usuario con esa identificación');
+                return res.status(403).send(JSON.stringify({ error: 'No se encontro un usuario con esa identificación y contraseña' }));
             }
         });
         // return res.status(200).send()
-    }).catch((err) => res.status(500).send(err));
+    }).catch((err) => res.status(500).send(JSON.stringify({ error: "Usuario no encontrado" })));
 }));
 router.post('/register', (req, res) => {
     const { error } = user_1.validateNewUser.validate(req.body);
@@ -69,7 +70,7 @@ router.post('/register', (req, res) => {
         console.log(err, hash);
         if (hash) {
             return (0, functions_1.insertNewUser)(Object.assign(Object.assign({}, req.body), { password: hash }), res).then(() => {
-                (0, mailer_1.sendMessage)(req.body.correoElectronico);
+                // sendMessage(req.body.correoElectronico);
             }).catch((respo) => console.log(respo));
         }
         return res.status(400).send();
