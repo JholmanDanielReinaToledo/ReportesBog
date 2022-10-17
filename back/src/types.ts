@@ -9,3 +9,10 @@ export type User = {
   activo: string;
   id_grupo: number;
 }
+
+export type Report = {
+  id: number;
+  idUsuario: number;
+  idEstado: number;
+  descripcion: string;
+}

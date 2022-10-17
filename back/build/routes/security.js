@@ -38,7 +38,7 @@ router.post('/login', (req, res) => __awaiter(void 0, void 0, void 0, function* 
                 if (process.env.TOKEN_SECRET) {
                     const date = (0, moment_1.default)().add(40, 'minute').calendar();
                     const token = (0, jsonwebtoken_1.sign)({
-                        name: usuarioByIdentificacion.identificacion,
+                        identificacion: usuarioByIdentificacion.identificacion,
                         id: usuarioByIdentificacion.id,
                         correoElectronico: usuarioByIdentificacion.correoElectronico,
                         expirationDate: date,
@@ -75,5 +75,105 @@ router.post('/register', (req, res) => {
         }
         return res.status(400).send();
     });
+});
+router.post('/create-report', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const token = req.header('authtoken');
+    if (!token)
+        return res.status(401).json({ error: 'Acceso denegado' });
+    let secretKey = process.env.TOKEN_SECRET;
+    if (secretKey === null || secretKey === undefined) {
+        return res.status(401).json({ error: 'Acceso denegado' });
+    }
+    console.log(token);
+    const tokenValue1 = token.replace('"', '');
+    const tokenValue = tokenValue1.replace('"', '');
+    console.log(tokenValue);
+    let userId = null;
+    try {
+        (0, jsonwebtoken_1.verify)(tokenValue, secretKey, function (err, decoded) {
+            if (err)
+                return res.status(500).send({ auth: false, message: err });
+            console.log(decoded);
+            userId = decoded.id;
+        });
+    }
+    catch (error) {
+        return res.status(500).send({ auth: false, message: error });
+    }
+    return res.status(200).send(JSON.stringify({ data: "Usuario encontrado " + userId }));
+}));
+router.post('/add-report-direction', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const token = req.header('authtoken');
+    if (!token)
+        return res.status(401).json({ error: 'Acceso denegado' });
+    let secretKey = process.env.TOKEN_SECRET;
+    if (secretKey === null || secretKey === undefined) {
+        return res.status(401).json({ error: 'Acceso denegado' });
+    }
+    console.log(token);
+    const tokenValue1 = token.replace('"', '');
+    const tokenValue = tokenValue1.replace('"', '');
+    console.log(tokenValue);
+    let userId = null;
+    try {
+        (0, jsonwebtoken_1.verify)(tokenValue, secretKey, function (err, decoded) {
+            if (err)
+                return res.status(500).send({ auth: false, message: err });
+            console.log(decoded);
+            userId = decoded.id;
+        });
+    }
+    catch (error) {
+        return res.status(500).send({ auth: false, message: error });
+    }
+    return res.status(200).send(JSON.stringify({ data: "Usuario encontrado " + userId }));
+}));
+router.get('/my-reports', (req, res) => {
+    const token = req.header('authtoken');
+    if (!token)
+        return res.status(401).json({ error: 'Acceso denegado' });
+    let secretKey = process.env.TOKEN_SECRET;
+    if (secretKey === null || secretKey === undefined) {
+        return res.status(401).json({ error: 'Acceso denegado' });
+    }
+    console.log(token);
+    const tokenValue1 = token.replace('"', '');
+    const tokenValue = tokenValue1.replace('"', '');
+    console.log(tokenValue);
+    let userId = null;
+    try {
+        (0, jsonwebtoken_1.verify)(tokenValue, secretKey, function (err, decoded) {
+            if (err)
+                return res.status(500).send({ auth: false, message: err });
+            console.log(decoded);
+            userId = decoded.id;
+        });
+    }
+    catch (error) {
+        return res.status(500).send({ auth: false, message: error });
+    }
+    return res.status(200).send(JSON.stringify({ data: "Usuario encontrado " + userId }));
+});
+router.get('/localidades', (req, res) => {
+    return (0, functions_1.getLocalidades)()
+        .then((re) => {
+        let dataToResponse = [];
+        re.data.allLocalidads.Localidades.forEach((e) => dataToResponse.push(e.localidad));
+        res.send(dataToResponse);
+    })
+        .catch((err) => res.status(500).send(JSON.stringify({ error: "Ourrio un problema" })));
+});
+router.post('/barrios', (req, res) => {
+    const idLocalidad = req.body.idLocalidad;
+    console.log("localidad " + idLocalidad);
+    if (idLocalidad == null)
+        return res.status(401).send(JSON.stringify({ error: 'No se envio un id de localidad' }));
+    return (0, functions_1.getBarrios)(idLocalidad)
+        .then((re) => {
+        let dataToResponse = [];
+        re.data.allBarrios.Barrios.forEach((e) => dataToResponse.push(e.barrio));
+        res.send(dataToResponse);
+    })
+        .catch((err) => { return res.status(500).send(JSON.stringify({ error: "Ourrio un problema" })); });
 });
 exports.default = router;

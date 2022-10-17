@@ -28,3 +28,49 @@ query getUserByIdentificacion($identificacion: String!) {
   }
 }
 `;
+
+
+export const CREATE_NEW_REPORT = gql`
+mutation insertNewReport ($data: CreateInconvenienteInput!) {
+  createInconveniente(input:$data) {
+    inconveniente {
+      id
+      idUsuario
+      idEstado
+      descripcion
+      }
+    }
+  }
+`;
+
+
+export const GET_LOCALIDADES = gql`
+query getAllLocalidades {
+  allLocalidads(orderBy: DESCRIPCION_ASC) {
+    Localidades:edges {
+      localidad:node {
+        id
+        codigoLocalidad
+        descripcion
+      }
+    }
+  }
+}
+`;
+
+
+export const GET_BARRIOS_BY_ID_LOCALIDAD = gql`
+query getBarrioByLocalidad($idLocalidad:Int) {
+  allBarrios(condition: {idLocalidad: $idLocalidad}, orderBy:DESCRIPCION_ASC) {
+    Barrios:edges {
+      barrio:node {
+        id
+        codigoBarrio
+        descripcion
+        localidad
+        idLocalidad
+      }
+    }
+  }
+}
+`;
