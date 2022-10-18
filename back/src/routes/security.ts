@@ -179,6 +179,7 @@ router.get('/my-reports', (req, res)=>{
     console.log(tokenValue);
 
     let userId = null;
+    let dataToSend
     try{
       verify(tokenValue,secretKey, function(err:any, decoded:any) {
         
@@ -186,6 +187,7 @@ router.get('/my-reports', (req, res)=>{
         
         console.log(decoded)
         userId = decoded.id
+        dataToSend=decoded
 
       });
 
@@ -193,7 +195,7 @@ router.get('/my-reports', (req, res)=>{
       return res.status(500).send({ auth: false, message: error }); 
     }
 
-    return res.status(200).send(JSON.stringify({data:"Usuario encontrado "+userId}))
+    return res.status(200).send(JSON.stringify({data:dataToSend}))
 });
 
 router.get('/localidades', (req, res)=>{
