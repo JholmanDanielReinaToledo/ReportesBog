@@ -8,15 +8,25 @@ const cors_1 = __importDefault(require("cors"));
 const postgraphile_1 = require("postgraphile");
 const security_1 = __importDefault(require("./routes/security"));
 const body_parser_1 = __importDefault(require("body-parser"));
+const pg_1 = require("pg");
 require('dotenv').config();
 const app = (0, express_1.default)();
 const options = {
     origin: '*',
 };
+const pool = new pg_1.Pool({
+    host: process.env.HOST_DB,
+    user: process.env.USER_DB,
+    port: 5432,
+    password: process.env.PASS_DB,
+    max: 20,
+    idleTimeoutMillis: 30000,
+    connectionTimeoutMillis: 2000,
+});
 app.use(body_parser_1.default.json());
 app.use((0, cors_1.default)(options));
 app.use(security_1.default);
-app.use('/back', (0, postgraphile_1.postgraphile)(process.env.DB_URL, [
+app.use('/back', (0, postgraphile_1.postgraphile)(pool, [
     'administracion',
     'aplicacion',
     'dominios',

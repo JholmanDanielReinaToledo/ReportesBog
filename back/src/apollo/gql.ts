@@ -1,5 +1,19 @@
 import { gql } from "postgraphile";
 
+export const INSERT_INCONVENIENTE = gql`
+mutation insertInconveniente($datos: InconvenienteInput!) {
+  createInconveniente (input: {inconveniente: $datos}) {
+    inconveniente {
+      id
+      descripcion
+      idEstado
+      fechaCreacion
+      idDireccion
+      idUsuario
+    }
+  }
+}`;
+
 export const INSERT_NEW_USER = gql`
 mutation insertNewUser ($data: CreateUsuarioInput!) {
     createUsuario(input: $data) {
