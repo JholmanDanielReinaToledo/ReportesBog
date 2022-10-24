@@ -9,7 +9,9 @@ import QueryString from 'qs';
 export type Req = Request<any, any, any, QueryString.ParsedQs, Record<string, any>>;
 export type Res = Response<any, any>;
 
-const direccion = 'http://localhost:5000/';
+require('dotenv').config();
+const port = process.env.PORT;
+const direccion = 'http://localhost:'+port+'/';
 
 const link = new HttpLink({
   uri: `${direccion}back/graphql`,
