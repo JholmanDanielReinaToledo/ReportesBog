@@ -18,5 +18,5 @@ export type UsuarioLoginToken = {
   password: string;
   activo: string;
   __typename: string;
-  toke: string;
+  token: string;
 }
