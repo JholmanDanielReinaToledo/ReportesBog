@@ -9,14 +9,18 @@ const BasicPage = ({children}) => {
   const { push, asPath } = useRouter();
 
   useEffect(() => {
-    const newUserString = window?.localStorage?.getItem('currentUser');
-    if (size(newUserString) > 0) {
-      const newUser = JSON.parse(newUserString || '');
-      if (newUser?.id && asPath == '/') {
-        push('/reportes');
+    console.log(window)
+    if (typeof window !== "undefined") {
+      // Client-side-only code
+      const newUserString = window?.localStorage?.getItem('currentUser');
+      if (size(newUserString) > 0) {
+        const newUser = JSON.parse(newUserString || '');
+        if (newUser?.id && asPath == '/') {
+          push('/reportes');
+        }
+      } else {
+        push('/');
       }
-    } else {
-      push('/');
     }
   }, []);
 

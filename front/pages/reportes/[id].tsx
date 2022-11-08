@@ -4,9 +4,11 @@ import moment from "moment";
 import { NextPage } from "next";
 import { useEffect, useState } from "react";
 import BasicPage from "../../src/common/Components/BasicPage";
+import Map from "../../src/common/Components/IndexMap";
 import Mapa from "../../src/common/Components/Mapa";
 import { GET_INCONVENIENTE_BY_ID } from "../../src/graphql/querys";
 import { Inconveniente } from "../../src/types";
+moment.locale('es');
 
 const ReportesPageDetalle = () => {
   const [inconveniente, setInconveniente] = useState<Inconveniente>();
@@ -31,11 +33,11 @@ const ReportesPageDetalle = () => {
             <Descriptions.Item label="Descripción">{inconveniente?.descripcion}</Descriptions.Item>
           </Descriptions>
           <Descriptions bordered>
-            <Descriptions.Item label="Descripción">{moment(inconveniente?.fechaCreacion).format()}</Descriptions.Item>
+            <Descriptions.Item label="Descripción">{moment(inconveniente?.fechaCreacion).format("MMMM Do YYYY")}</Descriptions.Item>
           </Descriptions>
         </Col>
         <Col span={12}>
-          <Mapa />
+          <Map />
         </Col>
       </Row>
     </BasicPage>

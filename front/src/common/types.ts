@@ -9,6 +9,9 @@ export type UsuarioLogin = {
   password: string;
   esActivo: boolean;
   idGrupo: number;
+  grupoByIdGrupo: {
+    nombre: string;
+  }
 };
 
 export type UsuarioLoginToken = {

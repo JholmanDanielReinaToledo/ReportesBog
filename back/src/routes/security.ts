@@ -14,7 +14,6 @@ const saltRounds = 10;
 const router = express.Router()
 
 router.post('/login', async (req, res) => {
-
   const { error } = loginBodyReq.validate(req.body);
 
   if (error) {
@@ -23,7 +22,6 @@ router.post('/login', async (req, res) => {
   }
 
   const { password, identificacion } = req.body;
-
   return getUserByIdentificacion(identificacion).then(
     (re) => {
       const { data } = re;
