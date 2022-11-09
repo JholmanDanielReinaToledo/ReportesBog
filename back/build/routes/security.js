@@ -16,7 +16,7 @@ const express_1 = __importDefault(require("express"));
 const user_1 = require("../validators/user");
 const bcrypt_1 = require("bcrypt");
 const functions_1 = require("../apollo/functions");
-const mailer_1 = require("../mail/mailer");
+// import { sendMessage } from '../mail/mailer';
 const jsonwebtoken_1 = require("jsonwebtoken");
 const moment_1 = __importDefault(require("moment"));
 require('dotenv').config();
@@ -37,29 +37,28 @@ router.post('/login', (req, res) => __awaiter(void 0, void 0, void 0, function* 
                 // arma el jwt y lo devuelve
                 if (process.env.TOKEN_SECRET) {
                     const date = (0, moment_1.default)().add(40, 'minute').calendar();
-                    console.log(date);
                     const token = (0, jsonwebtoken_1.sign)({
-                        name: usuarioByIdentificacion.identificacion,
+                        identificacion: usuarioByIdentificacion.identificacion,
                         id: usuarioByIdentificacion.id,
                         correoElectronico: usuarioByIdentificacion.correoElectronico,
                         expirationDate: date,
                     }, process.env.TOKEN_SECRET);
                     console.log(token);
-                    return res.status(200).send(token);
+                    return res.status(200).send(JSON.stringify(Object.assign(Object.assign({}, usuarioByIdentificacion), { token: token })));
                 }
                 else {
-                    return res.status(500).send('Error 00F1');
+                    return res.status(500).send(JSON.stringify({ error: 'Error 00F1' }));
                 }
             }
             else if (!usuarioByIdentificacion.activo) {
-                return res.status(403).send('El usuario no esta activo');
+                return res.status(403).send(JSON.stringify({ error: 'El usuario no esta activo' }));
             }
             else {
-                return res.status(403).send('No se encontro un usuario con esa identificación');
+                return res.status(403).send(JSON.stringify({ error: 'No se encontro un usuario con esa identificación y contraseña' }));
             }
         });
         // return res.status(200).send()
-    }).catch((err) => res.status(500).send(err));
+    }).catch((err) => res.status(500).send(JSON.stringify({ error: "Usuario no encontrado" })));
 }));
 router.post('/register', (req, res) => {
     const { error } = user_1.validateNewUser.validate(req.body);
@@ -71,10 +70,112 @@ router.post('/register', (req, res) => {
         console.log(err, hash);
         if (hash) {
             return (0, functions_1.insertNewUser)(Object.assign(Object.assign({}, req.body), { password: hash }), res).then(() => {
-                (0, mailer_1.sendMessage)(req.body.correoElectronico);
+                // sendMessage(req.body.correoElectronico);
             }).catch((respo) => console.log(respo));
         }
         return res.status(400).send();
     });
+});
+router.post('/create-report', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const token = req.header('authtoken');
+    if (!token)
+        return res.status(401).json({ error: 'Acceso denegado' });
+    let secretKey = process.env.TOKEN_SECRET;
+    if (secretKey === null || secretKey === undefined) {
+        return res.status(401).json({ error: 'Acceso denegado' });
+    }
+    console.log(token);
+    const tokenValue1 = token.replace('"', '');
+    const tokenValue = tokenValue1.replace('"', '');
+    console.log(tokenValue);
+    let userId = null;
+    try {
+        (0, jsonwebtoken_1.verify)(tokenValue, secretKey, function (err, decoded) {
+            if (err)
+                return res.status(500).send({ auth: false, message: err });
+            console.log(decoded);
+            userId = decoded.id;
+        });
+    }
+    catch (error) {
+        return res.status(500).send({ auth: false, message: error });
+    }
+    return res.status(200).send(JSON.stringify({ data: "Usuario encontrado " + userId }));
+}));
+router.post('/add-report-direction', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const token = req.header('authtoken');
+    if (!token)
+        return res.status(401).json({ error: 'Acceso denegado' });
+    let secretKey = process.env.TOKEN_SECRET;
+    if (secretKey === null || secretKey === undefined) {
+        return res.status(401).json({ error: 'Acceso denegado' });
+    }
+    console.log(token);
+    const tokenValue1 = token.replace('"', '');
+    const tokenValue = tokenValue1.replace('"', '');
+    console.log(tokenValue);
+    let userId = null;
+    try {
+        (0, jsonwebtoken_1.verify)(tokenValue, secretKey, function (err, decoded) {
+            if (err)
+                return res.status(500).send({ auth: false, message: err });
+            console.log(decoded);
+            userId = decoded.id;
+        });
+    }
+    catch (error) {
+        return res.status(500).send({ auth: false, message: error });
+    }
+    return res.status(200).send(JSON.stringify({ data: "Usuario encontrado " + userId }));
+}));
+router.get('/my-reports', (req, res) => {
+    const token = req.header('authtoken');
+    if (!token)
+        return res.status(401).json({ error: 'Acceso denegado' });
+    let secretKey = process.env.TOKEN_SECRET;
+    if (secretKey === null || secretKey === undefined) {
+        return res.status(401).json({ error: 'Acceso denegado' });
+    }
+    console.log(token);
+    const tokenValue1 = token.replace('"', '');
+    const tokenValue = tokenValue1.replace('"', '');
+    console.log(tokenValue);
+    let userId = null;
+    let dataToSend;
+    try {
+        (0, jsonwebtoken_1.verify)(tokenValue, secretKey, function (err, decoded) {
+            if (err)
+                return res.status(500).send({ auth: false, message: err });
+            console.log(decoded);
+            userId = decoded.id;
+            dataToSend = decoded;
+        });
+    }
+    catch (error) {
+        return res.status(500).send({ auth: false, message: error });
+    }
+    return res.status(200).send(JSON.stringify({ data: dataToSend }));
+});
+router.get('/localidades', (req, res) => {
+    return (0, functions_1.getLocalidades)()
+        .then((re) => {
+        let dataToResponse = [];
+        re.data.allLocalidads.Localidades.forEach((e) => dataToResponse.push(e.localidad));
+        res.send(dataToResponse);
+    })
+        .catch(() => res.status(500).send(JSON.stringify({ error: "Ocurrio un problema" })));
+});
+router.post('/barrios', (req, res) => {
+    const idLocalidad = req.body.idLocalidad;
+    console.log("localidad " + idLocalidad);
+    if (idLocalidad == null)
+        return res.status(401).send(JSON.stringify({ error: 'No se envio un id de localidad' }));
+    return (0, functions_1.getBarrios)(idLocalidad)
+        .then((re) => {
+        let dataToResponse = [];
+        re.data.allBarrios.Barrios.forEach((e) => dataToResponse.push(e.barrio));
+        res.send(dataToResponse);
+    })
+        .catch((err) => { return res.status(500).send(JSON.stringify({ error: "Ourrio un problema" })); });
 });
 exports.default = router;
