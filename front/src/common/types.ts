@@ -7,7 +7,7 @@ export type UsuarioLogin = {
   correoElectronico: string;
   usuario: string;
   password: string;
-  esActivo: boolean;
+  activo: boolean;
   idGrupo: number;
   grupoByIdGrupo: {
     nombre: string;

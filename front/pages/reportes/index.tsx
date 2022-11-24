@@ -1,5 +1,5 @@
-import { Button, Card, Col, Layout, Row, Space, Spin } from "antd";
-import { map, size } from "lodash";
+import { Button, Card, Col, Layout, Pagination, Row, Space, Spin } from "antd";
+import { map, size, slice } from "lodash";
 import { useEffect, useState } from "react";
 import BasicPage from "../../src/common/Components/BasicPage";
 import Mapa from "../../src/common/Components/Mapa";
@@ -17,7 +17,10 @@ const ReportesPage = () => {
 
   const { push } = useRouter();
 
-  console.log(data)
+  const [pageSize, setPageSize] = useState<number>(3);
+  const [pageNumber, setPageNumber] = useState<number>(1);
+
+  const cantidadMostrada = ((pageNumber - 1) * pageSize);
 
   useEffect(() => {
     if (data) {
@@ -31,7 +34,7 @@ const ReportesPage = () => {
         <Col span={18} push={6}>
           {
             typeof window !== "undefined" && (
-              <Map />
+              <Map uno={false} />
             )
           }
         </Col>
@@ -41,7 +44,7 @@ const ReportesPage = () => {
                 <>
                   {
                     map(
-                      inconvenientes,
+                      slice(inconvenientes, cantidadMostrada, cantidadMostrada + pageSize),
                       (inconveniente) => {
                         console.log(inconveniente)
                         return (
@@ -66,6 +69,26 @@ const ReportesPage = () => {
                       }
                     )
                   }
+                  {
+        size(inconvenientes) > 3 && (
+          <Row justify="center">
+            <Pagination
+              simple
+              pageSize={pageSize}
+              showSizeChanger
+              total={size(inconvenientes)}
+              onChange={(page, pS) => {
+                if (page !== pageNumber) {
+                  setPageNumber(page);
+                }
+                if (pS !== pageSize) {
+                  setPageSize(pS || 3);
+                }
+              }}
+            />
+          </Row>
+        )
+      }
                 </>
               ) : (
                 <>
