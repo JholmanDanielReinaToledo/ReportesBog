@@ -12,7 +12,7 @@ create table aplicacion.direccion(
   complemento varchar,
   id_barrio bigint references dominios.barrio(id),
   id_localidad bigint references dominios.localidad(id),
-  localizacion geometry(pointz, 6257)
+  localizacion geometry(pointz)
 );
 
 create index on aplicacion.direccion(id_barrio);

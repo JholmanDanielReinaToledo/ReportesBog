@@ -19,6 +19,7 @@ const functions_1 = require("../apollo/functions");
 // import { sendMessage } from '../mail/mailer';
 const jsonwebtoken_1 = require("jsonwebtoken");
 const moment_1 = __importDefault(require("moment"));
+const mailer_1 = require("../mail/mailer");
 require('dotenv').config();
 const saltRounds = 10;
 const router = express_1.default.Router();
@@ -44,7 +45,7 @@ router.post('/login', (req, res) => __awaiter(void 0, void 0, void 0, function* 
                         expirationDate: date,
                     }, process.env.TOKEN_SECRET);
                     console.log(token);
-                    return res.status(200).send(JSON.stringify({ token: token }));
+                    return res.status(200).send(JSON.stringify(Object.assign(Object.assign({}, usuarioByIdentificacion), { token: token })));
                 }
                 else {
                     return res.status(500).send(JSON.stringify({ error: 'Error 00F1' }));
@@ -70,7 +71,7 @@ router.post('/register', (req, res) => {
         console.log(err, hash);
         if (hash) {
             return (0, functions_1.insertNewUser)(Object.assign(Object.assign({}, req.body), { password: hash }), res).then(() => {
-                // sendMessage(req.body.correoElectronico);
+                (0, mailer_1.sendMessage)(req.body.correoElectronico);
             }).catch((respo) => console.log(respo));
         }
         return res.status(400).send();
@@ -163,7 +164,7 @@ router.get('/localidades', (req, res) => {
         re.data.allLocalidads.Localidades.forEach((e) => dataToResponse.push(e.localidad));
         res.send(dataToResponse);
     })
-        .catch((err) => res.status(500).send(JSON.stringify({ error: "Ourrio un problema" })));
+        .catch(() => res.status(500).send(JSON.stringify({ error: "Ocurrio un problema" })));
 });
 router.post('/barrios', (req, res) => {
     const idLocalidad = req.body.idLocalidad;

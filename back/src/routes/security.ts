@@ -7,6 +7,7 @@ import { decode, sign, verify } from 'jsonwebtoken';
 import moment from 'moment';
 import { map } from 'lodash';
 import { number } from 'joi';
+import { sendMessage } from '../mail/mailer';
 
 require('dotenv').config()
 
@@ -14,7 +15,6 @@ const saltRounds = 10;
 const router = express.Router()
 
 router.post('/login', async (req, res) => {
-
   const { error } = loginBodyReq.validate(req.body);
 
   if (error) {
@@ -23,7 +23,6 @@ router.post('/login', async (req, res) => {
   }
 
   const { password, identificacion } = req.body;
-
   return getUserByIdentificacion(identificacion).then(
     (re) => {
       const { data } = re;
@@ -40,7 +39,10 @@ router.post('/login', async (req, res) => {
               expirationDate: date,
             }, process.env.TOKEN_SECRET)
             console.log(token)
-            return res.status(200).send(JSON.stringify({token: token}))
+            return res.status(200).send(JSON.stringify({
+              ...usuarioByIdentificacion,
+              token: token,
+            }))
           } else {
             return res.status(500).send(JSON.stringify({error:'Error 00F1'}))
           }
@@ -71,7 +73,7 @@ router.post('/register', (req, res) => {
         password: hash,
       }, res).then(
         () => {
-          // sendMessage(req.body.correoElectronico);
+          sendMessage(req.body.correoElectronico);
         }
       ).catch(
         (respo) => console.log(respo)
@@ -208,7 +210,7 @@ router.get('/localidades', (req, res)=>{
 
     res.send(dataToResponse);
   })
-  .catch((err) => res.status(500).send(JSON.stringify({error:"Ourrio un problema"})))
+  .catch(() => res.status(500).send(JSON.stringify({error:"Ocurrio un problema"})))
 });
 
 

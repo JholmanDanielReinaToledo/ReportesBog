@@ -7,8 +7,11 @@ export type UsuarioLogin = {
   correoElectronico: string;
   usuario: string;
   password: string;
-  esActivo: boolean;
+  activo: boolean;
   idGrupo: number;
+  grupoByIdGrupo: {
+    nombre: string;
+  }
 };
 
 export type UsuarioLoginToken = {
@@ -18,5 +21,5 @@ export type UsuarioLoginToken = {
   password: string;
   activo: string;
   __typename: string;
-  toke: string;
+  token: string;
 }
