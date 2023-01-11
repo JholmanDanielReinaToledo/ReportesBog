@@ -7,7 +7,8 @@ import { decode, sign, verify } from 'jsonwebtoken';
 import moment from 'moment';
 import { map } from 'lodash';
 import { number } from 'joi';
-import { sendMessage } from '../mail/mailer';
+import { randomUUID } from 'crypto';
+//import { sendMessage } from '../mail/mailer';
 
 require('dotenv').config()
 
@@ -73,7 +74,7 @@ router.post('/register', (req, res) => {
         password: hash,
       }, res).then(
         () => {
-          sendMessage(req.body.correoElectronico);
+          //sendMessage(req.body.correoElectronico);
         }
       ).catch(
         (respo) => console.log(respo)
@@ -124,9 +125,70 @@ router.post('/create-report', async (req, res)=>{
 });
 
 
+const multer  = require('multer')
+/*
+var multerS3 = require('multer-s3');
 
-router.post('/add-report-direction', async (req, res)=>{
-  const token = req.header('authtoken');
+var aws = require('aws-sdk');
+var s3 = new aws.S3();
+var upload = multer({
+  storage: multerS3({
+      s3: s3,
+      bucket: process.env.BUCKET_REPORT_IMAGES,
+      key: function (req:Request, file:any, cb:any) {
+          console.log(file);
+          cb(null, randomUUID); //use Date.now() for unique file keys
+      }
+  })
+});*/
+const { S3Client } = require('@aws-sdk/client-s3')
+const multerS3 = require('multer-s3')
+
+const app = express()
+
+const s3 = new S3Client()
+
+const upload = multer({
+  storage: multerS3({
+    s3: s3,
+    bucket: process.env.BUCKET_REPORT_IMAGES,
+    acl:"public-read",
+    metadata: function (req:any, file:any, cb:any) {
+      console.log(file);
+      const nombreCortado = file.originalname.split('.');
+      const extension = nombreCortado[nombreCortado.length - 1]
+      
+      cb(null, {fieldName: file.fieldname, contentType: "application/"+extension});
+    },
+    key: function (req:any, file:any, cb:any) {
+      const nombreCortado = file.originalname.split('.');
+      const extension = nombreCortado[nombreCortado.length - 1]
+      cb(null, Date.now().toString()+"."+extension)
+    }
+  })
+})
+//const storage = multer.memoryStorage()
+//const upload = multer({ storage: storage })
+//const upload = multer({ dest: './uploads/' })
+router.post('/add-report-image',upload.array('file',1), function (req, res, next) {
+  // req['file'] is the `avatar` file
+  // req['body'] will hold the text fields, if there were any  
+  
+  //res.send("")
+  //req.files.location
+  res.send(req.files)
+})
+/*
+function a(req:express.Request, res:express.Response){
+
+  //imga(req, res)
+  console.log(req.files);
+  
+  res.json();
+};
+*/
+function imga(req:express.Request, res: express.Response): any {
+  /*const token = req.header('authtoken');
 
   if (!token) return res.status(401).json({ error: 'Acceso denegado' })
 
@@ -156,9 +218,14 @@ router.post('/add-report-direction', async (req, res)=>{
   }catch(error){
     return res.status(500).send({ auth: false, message: error }); 
   }
-  
-  return res.status(200).send(JSON.stringify({data:"Usuario encontrado "+userId}))
-});
+
+
+*/
+
+
+  //return res.send("ok");
+  //return res.status(200).send(JSON.stringify({data:"Usuario encontrado "+userId}))
+};
 
 
 

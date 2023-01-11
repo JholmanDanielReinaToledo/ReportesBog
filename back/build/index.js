@@ -15,6 +15,10 @@ const app = (0, express_1.default)();
 const options = {
     origin: '*',
 };
+/*
+var fileupload = require("express-fileupload");
+app.use(fileupload());
+*/
 const pool = new pg_1.Pool({
     host: process.env.HOST_DB,
     user: process.env.USER_DB,

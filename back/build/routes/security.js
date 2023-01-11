@@ -19,7 +19,7 @@ const functions_1 = require("../apollo/functions");
 // import { sendMessage } from '../mail/mailer';
 const jsonwebtoken_1 = require("jsonwebtoken");
 const moment_1 = __importDefault(require("moment"));
-const mailer_1 = require("../mail/mailer");
+//import { sendMessage } from '../mail/mailer';
 require('dotenv').config();
 const saltRounds = 10;
 const router = express_1.default.Router();
@@ -71,7 +71,7 @@ router.post('/register', (req, res) => {
         console.log(err, hash);
         if (hash) {
             return (0, functions_1.insertNewUser)(Object.assign(Object.assign({}, req.body), { password: hash }), res).then(() => {
-                (0, mailer_1.sendMessage)(req.body.correoElectronico);
+                //sendMessage(req.body.correoElectronico);
             }).catch((respo) => console.log(respo));
         }
         return res.status(400).send();
@@ -103,32 +103,101 @@ router.post('/create-report', (req, res) => __awaiter(void 0, void 0, void 0, fu
     }
     return res.status(200).send(JSON.stringify({ data: "Usuario encontrado " + userId }));
 }));
-router.post('/add-report-direction', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const token = req.header('authtoken');
-    if (!token)
-        return res.status(401).json({ error: 'Acceso denegado' });
+const path = require('path');
+const multer = require('multer');
+/*
+var multerS3 = require('multer-s3');
+
+var aws = require('aws-sdk');
+var s3 = new aws.S3();
+var upload = multer({
+  storage: multerS3({
+      s3: s3,
+      bucket: process.env.BUCKET_REPORT_IMAGES,
+      key: function (req:Request, file:any, cb:any) {
+          console.log(file);
+          cb(null, randomUUID); //use Date.now() for unique file keys
+      }
+  })
+});*/
+const { S3Client } = require('@aws-sdk/client-s3');
+const multerS3 = require('multer-s3');
+const app = (0, express_1.default)();
+const s3 = new S3Client();
+const upload = multer({
+    storage: multerS3({
+        s3: s3,
+        bucket: process.env.BUCKET_REPORT_IMAGES,
+        acl: "public-read",
+        metadata: function (req, file, cb) {
+            console.log(file);
+            const nombreCortado = file.originalname.split('.');
+            const extension = nombreCortado[nombreCortado.length - 1];
+            cb(null, { fieldName: file.fieldname, contentType: "application/" + extension });
+        },
+        key: function (req, file, cb) {
+            const nombreCortado = file.originalname.split('.');
+            const extension = nombreCortado[nombreCortado.length - 1];
+            cb(null, Date.now().toString() + "." + extension);
+        }
+    })
+});
+//const storage = multer.memoryStorage()
+//const upload = multer({ storage: storage })
+//const upload = multer({ dest: './uploads/' })
+router.post('/add-report-image', upload.array('file', 1), function (req, res, next) {
+    // req['file'] is the `avatar` file
+    // req['body'] will hold the text fields, if there were any  
+    //res.send("")
+    res.send(req.files);
+});
+/*
+function a(req:express.Request, res:express.Response){
+
+  //imga(req, res)
+  console.log(req.files);
+  
+  res.json();
+};
+*/
+function imga(req, res) {
+    /*const token = req.header('authtoken');
+  
+    if (!token) return res.status(401).json({ error: 'Acceso denegado' })
+  
     let secretKey = process.env.TOKEN_SECRET;
-    if (secretKey === null || secretKey === undefined) {
-        return res.status(401).json({ error: 'Acceso denegado' });
+    
+    if(secretKey === null || secretKey === undefined){
+      return res.status(401).json({ error: 'Acceso denegado' })
     }
+  
     console.log(token);
-    const tokenValue1 = token.replace('"', '');
-    const tokenValue = tokenValue1.replace('"', '');
+    
+    const tokenValue1 = token.replace('"','')
+    const tokenValue = tokenValue1.replace('"','')
     console.log(tokenValue);
+  
     let userId = null;
-    try {
-        (0, jsonwebtoken_1.verify)(tokenValue, secretKey, function (err, decoded) {
-            if (err)
-                return res.status(500).send({ auth: false, message: err });
-            console.log(decoded);
-            userId = decoded.id;
-        });
+    try{
+      verify(tokenValue,secretKey, function(err:any, decoded:any) {
+        
+        if (err)return res.status(500).send({ auth: false, message: err });
+        
+        console.log(decoded)
+        userId = decoded.id
+  
+      });
+  
+    }catch(error){
+      return res.status(500).send({ auth: false, message: error });
     }
-    catch (error) {
-        return res.status(500).send({ auth: false, message: error });
-    }
-    return res.status(200).send(JSON.stringify({ data: "Usuario encontrado " + userId }));
-}));
+  
+  
+  */
+    //return res.send("ok");
+    //return res.status(200).send(JSON.stringify({data:"Usuario encontrado "+userId}))
+}
+;
 router.get('/my-reports', (req, res) => {
     const token = req.header('authtoken');
     if (!token)
