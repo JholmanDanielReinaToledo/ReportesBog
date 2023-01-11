@@ -20,13 +20,13 @@
 .layout1 {
   width: 50%;
   background: white;
-  background-image: url(/images/1.jpeg);
+  background-image: url(/images/1.jpg);
   background-size: cover;
 }
 .layout2 {
   width: 50%;
   background: white;
-  background-image: url(/images/2.jpg);
+  background-image: url(/images/2.png);
   background-size: cover;
 }
 .layout3 {
@@ -38,7 +38,7 @@
 .layout4 {
   width: 50%;
   background: white;
-  background-image: url(/images/4.jpeg);
+  background-image: url(/images/4.jpg);
   background-size: cover;
 }
 .loginContainer {

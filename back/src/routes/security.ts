@@ -7,6 +7,7 @@ import { decode, sign, verify } from 'jsonwebtoken';
 import moment from 'moment';
 import { map } from 'lodash';
 import { number } from 'joi';
+import { sendMessage } from '../mail/mailer';
 
 require('dotenv').config()
 
@@ -72,7 +73,7 @@ router.post('/register', (req, res) => {
         password: hash,
       }, res).then(
         () => {
-          // sendMessage(req.body.correoElectronico);
+          sendMessage(req.body.correoElectronico);
         }
       ).catch(
         (respo) => console.log(respo)

@@ -42,4 +42,6 @@ export type Inconveniente = {
   fechaCreacion: Date,
   estadoReporteByIdEstado: EstadoReporte,
   direccionByIdDireccion: Direccion,
+  idDireccion: number,
+  idUsuario: number,
 };
