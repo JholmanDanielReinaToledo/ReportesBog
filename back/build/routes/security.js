@@ -103,7 +103,6 @@ router.post('/create-report', (req, res) => __awaiter(void 0, void 0, void 0, fu
     }
     return res.status(200).send(JSON.stringify({ data: "Usuario encontrado " + userId }));
 }));
-const path = require('path');
 const multer = require('multer');
 /*
 var multerS3 = require('multer-s3');
@@ -149,6 +148,7 @@ router.post('/add-report-image', upload.array('file', 1), function (req, res, ne
     // req['file'] is the `avatar` file
     // req['body'] will hold the text fields, if there were any  
     //res.send("")
+    //req.files.location
     res.send(req.files);
 });
 /*

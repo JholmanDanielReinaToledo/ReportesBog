@@ -176,6 +176,11 @@ router.post('/add-report-image',upload.array('file',1), function (req, res, next
   
   //res.send("")
   //req.files.location
+
+  console.log(req.files);
+  
+
+
   res.send(req.files)
 })
 /*
