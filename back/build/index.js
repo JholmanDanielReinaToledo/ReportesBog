@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const postgraphile_1 = require("postgraphile");
+const postgis_1 = __importDefault(require("@graphile/postgis"));
 const security_1 = __importDefault(require("./routes/security"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const pg_1 = require("pg");
@@ -14,6 +15,10 @@ const app = (0, express_1.default)();
 const options = {
     origin: '*',
 };
+/*
+var fileupload = require("express-fileupload");
+app.use(fileupload());
+*/
 const pool = new pg_1.Pool({
     host: process.env.HOST_DB,
     user: process.env.USER_DB,
@@ -35,6 +40,7 @@ app.use('/back', (0, postgraphile_1.postgraphile)(pool, [
     watchPg: true,
     graphiql: true,
     enhanceGraphiql: true,
+    appendPlugins: [postgis_1.default],
 }));
 app.listen(process.env.PORT, () => {
     console.log('Server running in port ' + process.env.PORT);

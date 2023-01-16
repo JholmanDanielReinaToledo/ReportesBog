@@ -1,9 +1,11 @@
 import express from 'express'
 import cors, { CorsOptions } from 'cors'
 import { postgraphile } from 'postgraphile'
+import postgis from '@graphile/postgis';
 import router from './routes/security'
 import bodyParser from 'body-parser'
 import { Pool } from 'pg';
+
 
 require('dotenv').config()
 
@@ -12,6 +14,11 @@ const app = express()
 const options: CorsOptions = {
   origin: '*',
 };
+
+/*
+var fileupload = require("express-fileupload");
+app.use(fileupload());
+*/
 
 const pool = new Pool({
   host: process.env.HOST_DB,
@@ -42,6 +49,7 @@ app.use(
       watchPg: true,
       graphiql: true,
       enhanceGraphiql: true,
+      appendPlugins: [postgis],
     }
   )
 );

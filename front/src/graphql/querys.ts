@@ -30,7 +30,12 @@ query getAllInconvenientes {
         }
         numero
         complemento
-        localizacion
+        localizacion {
+          geojson
+          x
+          y
+          srid
+        }
         barrio: barrioByIdBarrio {
           descripcion
         } 
@@ -48,6 +53,8 @@ query getInconvenienteById($id: BigInt!) {
       id
       descripcion
       fechaCreacion
+      idDireccion
+      idUsuario
       estadoReporteByIdEstado {
         descripcion
       }
@@ -71,7 +78,12 @@ query getInconvenienteById($id: BigInt!) {
         }
         numero
         complemento
-        localizacion
+        localizacion {
+          geojson
+          x
+          y
+          srid
+        }
         barrio: barrioByIdBarrio {
           descripcion
         } 
@@ -94,6 +106,8 @@ query getAllUsuarios {
       identificacion
       correoElectronico
       activo
+      idGrupo
+      password
       grupoByIdGrupo {
         nombre
       }
@@ -101,4 +115,15 @@ query getAllUsuarios {
   }
 }
 
+`;
+
+export const GET_ESTADO_REPORTE = gql`
+query allEstadoReporte {
+  allEstadoReportes {
+    nodes {
+      id
+      descripcion
+    }
+  }
+}
 `;

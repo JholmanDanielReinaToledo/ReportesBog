@@ -1,4 +1,4 @@
-import crypto from "crypto";
+/*import crypto from "crypto";
 const algorithm = 'aes-256-cbc';
 
 // Defining key
@@ -44,4 +44,4 @@ export function decrypt(value: string, ivr:string) {
 
     // returns data after decryption
     return decrypted.toString();
-}
+}*/
