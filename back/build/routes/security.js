@@ -149,6 +149,7 @@ router.post('/add-report-image', upload.array('file', 1), function (req, res, ne
     // req['body'] will hold the text fields, if there were any  
     //res.send("")
     //req.files.location
+    console.log(req.files);
     res.send(req.files);
 });
 /*
