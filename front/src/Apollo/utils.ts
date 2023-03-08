@@ -2,7 +2,7 @@ import { ApolloClient, InMemoryCache } from '@apollo/client';
 import { ApolloLink, ApolloQueryResult } from '@apollo/client/core';
 import { isEmpty } from 'lodash';
 
-const direccion = 'http://localhost:5000/';
+const direccion = 'http://3.83.162.59:5433/';
 
 const cache = new InMemoryCache();
 

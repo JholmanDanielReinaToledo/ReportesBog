@@ -2,17 +2,18 @@ import { message } from "antd";
 import axios from "axios";
 import { UsuarioLogin } from "../common/types";
 
-const BASE_URL = 'http://localhost:5000/';
+const BASE_URL = 'http://3.83.162.59:5433/';
 
 export const login = async (usuarioLogin: UsuarioLogin) => {
   if (usuarioLogin.usuario && usuarioLogin.password) {
-    const { data } = await axios.post(BASE_URL + 'login', 
-    {
-      password: usuarioLogin.password,
-      identificacion: usuarioLogin.usuario,
-    }
-    );
-    return data;
+    return axios.post(BASE_URL + 'login', 
+      {
+        password: usuarioLogin.password,
+        identificacion: usuarioLogin.usuario,
+      }
+    )
+      .then(({data}) => data)
+      .catch((err) => console.log(err));
   }
   return false;
 };

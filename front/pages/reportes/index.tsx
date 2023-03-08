@@ -13,6 +13,7 @@ import Map from "../../src/common/Components/IndexMap";
 
 const ReportesPage = () => {
   const [inconvenientes, setInconvenientes] = useState<Inconveniente[]>([]);
+  const [puntos, setPuntos] = useState<any[]>();
   const { loading, error, data } = useQuery(GET_ALL_INCONVENIENTES);
 
   const { push } = useRouter();
@@ -21,6 +22,20 @@ const ReportesPage = () => {
   const [pageNumber, setPageNumber] = useState<number>(1);
 
   const cantidadMostrada = ((pageNumber - 1) * pageSize);
+
+  useEffect(() => {
+    if (inconvenientes) {
+      const puntosTemp: any[] = [];
+      map(inconvenientes, (inconveniente) => {
+        console.log(inconveniente?.direccionByIdDireccion?.localizacion)
+        if (inconveniente?.direccionByIdDireccion?.localizacion) {
+          puntosTemp.push({x: inconveniente?.direccionByIdDireccion?.localizacion.x, y: inconveniente?.direccionByIdDireccion?.localizacion.y})
+          console.log(inconveniente.direccionByIdDireccion.localizacion);
+        }
+      });
+      setPuntos(puntosTemp);
+    }
+  }, [inconvenientes]);
 
   useEffect(() => {
     if (data) {
@@ -34,19 +49,18 @@ const ReportesPage = () => {
         <Col span={18} push={6}>
           {
             typeof window !== "undefined" && (
-              <Map uno={false} />
+              <Map puntos={puntos}/>
             )
           }
         </Col>
         <Col span={6} pull={18}>
             {
-              size(inconvenientes) > 0 ? (
+              size(inconvenientes) > 0 && (
                 <>
                   {
                     map(
                       slice(inconvenientes, cantidadMostrada, cantidadMostrada + pageSize),
                       (inconveniente) => {
-                        console.log(inconveniente)
                         return (
                           <Card
                             title={`${moment(inconveniente.fechaCreacion).format('MMMM d, YYYY') }`}
@@ -70,28 +84,25 @@ const ReportesPage = () => {
                     )
                   }
                   {
-        size(inconvenientes) > 3 && (
-          <Row justify="center">
-            <Pagination
-              simple
-              pageSize={pageSize}
-              showSizeChanger
-              total={size(inconvenientes)}
-              onChange={(page, pS) => {
-                if (page !== pageNumber) {
-                  setPageNumber(page);
-                }
-                if (pS !== pageSize) {
-                  setPageSize(pS || 3);
-                }
-              }}
-            />
-          </Row>
-        )
-      }
-                </>
-              ) : (
-                <>
+                    size(inconvenientes) > 3 && (
+                      <Row justify="center">
+                        <Pagination
+                          simple
+                          pageSize={pageSize}
+                          showSizeChanger
+                          total={size(inconvenientes)}
+                          onChange={(page, pS) => {
+                            if (page !== pageNumber) {
+                              setPageNumber(page);
+                            }
+                            if (pS !== pageSize) {
+                              setPageSize(pS || 3);
+                            }
+                          }}
+                        />
+                      </Row>
+                    )
+                  }
                 </>
               )
             }

@@ -68,7 +68,7 @@ const Home: NextPage = () => {
           : (
             <LoginForm
                 onSubmit={loginS}
-              />
+            />
           )
       }
 

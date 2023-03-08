@@ -58,6 +58,12 @@ query getInconvenienteById($id: BigInt!) {
       estadoReporteByIdEstado {
         descripcion
       }
+      fotosByIdInconveniente{
+        nodes {
+          id
+          enlace
+        }
+      }
       direccionByIdDireccion {
         id
         cruceDesde: nomenclaturaVialByCruceDesde {
