@@ -112,7 +112,10 @@ const ReportesPageDetalle = () => {
           </Button>
           <p />
           <Carousel >
-            {map(inconveniente?.fotosByIdInconveniente.nodes, (foto) => {
+
+            {
+              // @ts-ignore
+            map(inconveniente?.fotosByIdInconveniente.nodes, (foto) => {
               return (
                 <div>
                   <img src={foto.enlace} height={200} />

@@ -29,6 +29,7 @@ const ReportesPage = () => {
       map(inconvenientes, (inconveniente) => {
         console.log(inconveniente?.direccionByIdDireccion?.localizacion)
         if (inconveniente?.direccionByIdDireccion?.localizacion) {
+          // @ts-ignore
           puntosTemp.push({x: inconveniente?.direccionByIdDireccion?.localizacion.x, y: inconveniente?.direccionByIdDireccion?.localizacion.y})
           console.log(inconveniente.direccionByIdDireccion.localizacion);
         }

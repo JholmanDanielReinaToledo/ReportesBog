@@ -9,7 +9,6 @@ const BasicPage = ({children}) => {
   const { push, asPath } = useRouter();
 
   useEffect(() => {
-    console.log(window)
     if (typeof window !== "undefined") {
       // Client-side-only code
       const newUserString = window?.localStorage?.getItem('currentUser');
@@ -31,12 +30,7 @@ const BasicPage = ({children}) => {
     <Sider
       breakpoint="lg"
       collapsedWidth="0"
-      onBreakpoint={broken => {
-        console.log(broken);
-      }}
-      onCollapse={(collapsed, type) => {
-        console.log(collapsed, type);
-      }}
+
     >
       <div className="logo" />
       <Menu
@@ -50,6 +44,7 @@ const BasicPage = ({children}) => {
           <Menu.Item onClick={() => push('/administracion/dominios')}>Dominios</Menu.Item>
         </Menu.SubMenu>
         <Menu.Item onClick={() => push('/reportes')}>Reportes</Menu.Item>
+        <Menu.Item onClick={() => push('/estadisticas')}>Estadísticas</Menu.Item>
       </Menu>
     </Sider>
     <Layout>
