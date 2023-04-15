@@ -75,6 +75,7 @@ const CardPropio: FC<CardPropioProps> = ({
     useConfirm,
   } = secondary || {};
   return (
+    <>
     <Card
       hoverable
       className={className || styles.card}
@@ -135,6 +136,7 @@ const CardPropio: FC<CardPropioProps> = ({
         </Row>
       )}
     </Card>
+    </>
   );
 };
 

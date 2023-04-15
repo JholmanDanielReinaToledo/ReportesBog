@@ -54,7 +54,9 @@ const ReportesPage = () => {
             )
           }
         </Col>
-        <Col span={6} pull={18}>
+        <Col span={6} pull={18} style={{}}>
+          
+            
             {
               size(inconvenientes) > 0 && (
                 <>
@@ -67,6 +69,7 @@ const ReportesPage = () => {
                             title={`${moment(inconveniente.fechaCreacion).format('MMMM d, YYYY') }`}
                             style={{
                               maxWidth: '280px',
+                              marginBottom: '20px',
                             }}
                           >
                             <>
