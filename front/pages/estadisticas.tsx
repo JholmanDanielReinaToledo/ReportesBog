@@ -3,8 +3,9 @@ import BasicPage from "../src/common/Components/BasicPage";
 import { Inconveniente } from "../src/types";
 import { useQuery } from "@apollo/client";
 import { GET_ALL_INCONVENIENTES } from "../src/graphql/querys";
-import { map, size } from "lodash";
+import { groupBy, map, orderBy, size } from "lodash";
 import { PieChart, Pie, Legend, Tooltip, Cell } from "recharts";
+import { Space } from "antd";
 
 const COLORS = [
   "#0088FE",
@@ -33,6 +34,7 @@ const EstadisticaPage = () => {
     sin: 0,
   });
   const [localidades, setLocalidades] = useState([]);
+  const [estadosReportes, setEstadosReportes] = useState([]);
 
   const { loading, error, data } = useQuery(GET_ALL_INCONVENIENTES);
 
@@ -82,6 +84,32 @@ const EstadisticaPage = () => {
         // @ts-ignore
         value: inconvenientesPorLocal[key],
       }));
+
+      const estadosInconvenientes = {
+        
+      };
+
+      map(inconvenientes, (inconveniente) => {
+        const estado = inconveniente?.estadoReporteByIdEstado?.descripcion;
+        // @ts-ignore
+        if (estadosInconvenientes[estado]) {
+        // @ts-ignore
+          estadosInconvenientes[estado] += 1;
+        } else {
+        // @ts-ignore
+          estadosInconvenientes[estado] = 1;
+        }
+      });
+
+      console.log(estadosInconvenientes);
+
+      const outputArray2 = Object.keys(estadosInconvenientes).map((key) => ({
+        name: key,
+        // @ts-ignore
+        value: estadosInconvenientes[key],
+      }));
+      // @ts-ignore
+      setEstadosReportes(outputArray2);
       // @ts-ignore
       setLocalidades(outputArray);
       setInconvenientesConDir(reportesConDirTemp);
@@ -93,40 +121,59 @@ const EstadisticaPage = () => {
     { name: "Sin dirección", value: conteo.sin },
     { name: "Con dirección", value: conteo.con },
   ];
-
+  console.log(estadosReportes);
   return (
     <BasicPage>
-      <PieChart width={400} height={400}>
-        <Pie
-          data={data1}
-          cx={200}
-          cy={200}
-          innerRadius={60}
-          outerRadius={80}
-          fill='#8884d8'
-          dataKey='value'>
-          {data1?.map((_, index) => (
-            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-          ))}
-        </Pie>
-        <Tooltip />
-        <Legend />
-      </PieChart>
-      <PieChart width={400} height={400}>
-        <Legend />
-        <Pie
-          data={localidades}
-          cx='50%'
-          cy='50%'
-          outerRadius={80}
-          label
-          fill='#8884d8'
-          dataKey='value'>
-          {localidades?.map((_, index) => (
-            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-          ))}
-        </Pie>
-      </PieChart>
+      <Space wrap>
+        <PieChart width={400} height={400}>
+          <Pie
+            data={data1}
+            cx={200}
+            cy={200}
+            innerRadius={60}
+            outerRadius={80}
+            fill='#8884d8'
+            dataKey='value'>
+            {data1?.map((_, index) => (
+              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+            ))}
+          </Pie>
+          <Tooltip />
+          <Legend />
+        </PieChart>
+        <PieChart width={400} height={400}>
+          <Legend />
+          <Pie
+            data={localidades}
+            cx='50%'
+            cy='50%'
+            outerRadius={80}
+            label
+            fill='#8884d8'
+            dataKey='value'>
+            {localidades?.map((_, index) => (
+              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+            ))}
+          </Pie>
+        </PieChart>
+
+        <PieChart width={400} height={400}>
+          <Legend />
+          <Pie
+            data={estadosReportes}
+            cx='50%'
+            cy='50%'
+            outerRadius={80}
+            label
+            fill='#8884d8'
+            dataKey='value'>
+            {localidades?.map((_, index) => (
+              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+            ))}
+          </Pie>
+        </PieChart>
+
+      </Space>
     </BasicPage>
   );
 };
