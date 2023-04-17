@@ -68,8 +68,6 @@ const EstadisticaPage = () => {
     }
   }, [filtros, inconvenientes]);
 
-  console.log(inconvenientesFiltrados);
-
   useEffect(() => {
     const inconvenientesPorLocal = {};
 
