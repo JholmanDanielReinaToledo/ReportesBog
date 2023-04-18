@@ -13,7 +13,7 @@ export const login = async (usuarioLogin: UsuarioLogin) => {
       }
     )
       .then(({data}) => data)
-      .catch((err) => console.log(err));
+      .catch(() => message.info('Usuario o contraseña incorrectos'));
   }
   return false;
 };

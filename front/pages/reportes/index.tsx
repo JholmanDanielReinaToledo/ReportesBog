@@ -10,6 +10,7 @@ import { useQuery } from '@apollo/client';
 import { EyeFilled, EyeOutlined } from "@ant-design/icons";
 import { useRouter } from "next/router";
 import Map from "../../src/common/Components/IndexMap";
+import { getStringDireccion } from "../../src/utils";
 
 const ReportesPage = () => {
   const [inconvenientes, setInconvenientes] = useState<Inconveniente[]>([]);
@@ -27,11 +28,9 @@ const ReportesPage = () => {
     if (inconvenientes) {
       const puntosTemp: any[] = [];
       map(inconvenientes, (inconveniente) => {
-        console.log(inconveniente?.direccionByIdDireccion?.localizacion)
         if (inconveniente?.direccionByIdDireccion?.localizacion) {
           // @ts-ignore
           puntosTemp.push({x: inconveniente?.direccionByIdDireccion?.localizacion.x, y: inconveniente?.direccionByIdDireccion?.localizacion.y})
-          console.log(inconveniente.direccionByIdDireccion.localizacion);
         }
       });
       setPuntos(puntosTemp);
@@ -73,7 +72,7 @@ const ReportesPage = () => {
                             }}
                           >
                             <>
-                              <p>{inconveniente?.direccionByIdDireccion ? 'Direccion' : 'Sin direccion'}</p>
+                              <p>{inconveniente?.direccionByIdDireccion ? getStringDireccion(inconveniente.direccionByIdDireccion) : 'Sin direccion'}</p>
                               <p>{inconveniente?.estadoReporteByIdEstado ? inconveniente?.estadoReporteByIdEstado.descripcion : 'Cargando'}</p>
                             </>
                             <Button

@@ -22,8 +22,6 @@ const IndexUsuariosPage = () => {
     }
   }, [data]);
 
-  console.log(usuarios)
-
   return (
     <BasicPage>
       <Space wrap>
@@ -63,7 +61,6 @@ const IndexUsuariosPage = () => {
                           }
                         });
                         refetch();
-                        console.log(usuario);
                       }
                     }
                   }}

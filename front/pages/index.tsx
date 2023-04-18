@@ -17,7 +17,7 @@ const Home: NextPage = () => {
 
   const loginS = async (values: UsuarioLogin) => {
     const loginValues: UsuarioLoginToken = await login(values);
-    console.log(loginValues);
+
     if (loginValues?.token) {
       window?.localStorage?.setItem(
         'currentUser',
