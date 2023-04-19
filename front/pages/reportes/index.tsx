@@ -53,12 +53,13 @@ const ReportesPage = () => {
             )
           }
         </Col>
-        <Col span={6} pull={18} style={{}}>
+        <Col span={6} pull={18}>
           
             
             {
               size(inconvenientes) > 0 && (
                 <>
+                  <div style={{width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                   {
                     map(
                       slice(inconvenientes, cantidadMostrada, cantidadMostrada + pageSize),
@@ -67,6 +68,7 @@ const ReportesPage = () => {
                           <Card
                             title={`${moment(inconveniente.fechaCreacion).format('MMMM d, YYYY') }`}
                             style={{
+                              width: '100%',
                               maxWidth: '280px',
                               marginBottom: '20px',
                             }}
@@ -86,6 +88,7 @@ const ReportesPage = () => {
                       }
                     )
                   }
+                  </div>
                   {
                     size(inconvenientes) > 3 && (
                       <Row justify="center">
